@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29418.71
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clever", "Clever\Clever.csproj", "{C36F1832-9768-4409-9D99-A18956823DF7}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -25,16 +25,16 @@ Global
 		{C36F1832-9768-4409-9D99-A18956823DF7}.Debug|Any CPU.Build.0 = Release|Any CPU
 		{C36F1832-9768-4409-9D99-A18956823DF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C36F1832-9768-4409-9D99-A18956823DF7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{78E56AF8-91A8-42B1-8EE9-80C689D20A3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{78E56AF8-91A8-42B1-8EE9-80C689D20A3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78E56AF8-91A8-42B1-8EE9-80C689D20A3C}.Debug|Any CPU.ActiveCfg = Release|Any CPU
+		{78E56AF8-91A8-42B1-8EE9-80C689D20A3C}.Debug|Any CPU.Build.0 = Release|Any CPU
 		{78E56AF8-91A8-42B1-8EE9-80C689D20A3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{78E56AF8-91A8-42B1-8EE9-80C689D20A3C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{635C6198-B007-4C73-869B-27325F584C4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{635C6198-B007-4C73-869B-27325F584C4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{635C6198-B007-4C73-869B-27325F584C4C}.Debug|Any CPU.ActiveCfg = Release|Any CPU
+		{635C6198-B007-4C73-869B-27325F584C4C}.Debug|Any CPU.Build.0 = Release|Any CPU
 		{635C6198-B007-4C73-869B-27325F584C4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{635C6198-B007-4C73-869B-27325F584C4C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BADAF855-2852-47D8-9CAF-C5DA512A01E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BADAF855-2852-47D8-9CAF-C5DA512A01E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BADAF855-2852-47D8-9CAF-C5DA512A01E8}.Debug|Any CPU.ActiveCfg = Release|Any CPU
+		{BADAF855-2852-47D8-9CAF-C5DA512A01E8}.Debug|Any CPU.Build.0 = Release|Any CPU
 		{BADAF855-2852-47D8-9CAF-C5DA512A01E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BADAF855-2852-47D8-9CAF-C5DA512A01E8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
