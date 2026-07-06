@@ -1,0 +1,20 @@
+import "Touch"
+LCD.Clear()
+LCD.Text(1, 20, 10, 2, "Sensor")
+LCD.Text(1, 20, 30, 2, "Touch")
+T = Touch.getTouch(1)
+While "True"
+  If Touch.getTouch(1) = 1 Then
+    LCD.Text(1, 0, 50, 2, "  pressed  ")
+    LCD.Text(1, 0, 70, 2, " ")
+  Else
+    LCD.Text(1, 0, 50, 2, "not pressed")
+    LCD.Text(1, 40, 70, 2, " ")
+  EndIf
+  LCD.Text(1, 20, 50, 2, Touch.getTouch(1))
+EndWhile
+
+A = 1 - Touch.getTouch(2)
+Function number Sqrt(in number A)
+  return A * A
+EndFunction

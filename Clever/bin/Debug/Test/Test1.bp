@@ -1,0 +1,16 @@
+'
+Function string TestString(in string S) ' любой комментарий
+  Sout = ""
+  N = Text.GetLength(S)
+  For I = 0 To N - 1
+    Sout = Sout + Text.GetSubText(S, N - I, 1)   ' пример функции возвращаюшей текстовую строку. Просто переворачивает все символы входной строки.
+  EndFor
+  return Sout
+EndFunction
+  ' коммент
+LCD.Clear() 'Перевернутые строки выводим на экран EV3 
+
+Sin = "12345678"
+LCD.Text(1, 0, 10, 2, Sin)
+LCD.Text(1, 0, 30, 2, TestString(Sin) + TestString(" ABCD") )  ' при этом показываем, что можно осуществлять множественный вызов тестовой функции
+Buttons.Wait()

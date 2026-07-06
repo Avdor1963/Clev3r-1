@@ -1,0 +1,87 @@
+pr_primer_ll = 0
+pr_primer_pp = 0
+lv_r_getll_1 = 0
+lv_p_2 = 0
+lv_l_3 = 0
+lv_r_getpp_4 = 0
+lv_p_5 = 0
+lv_a_6 = 0
+lv_r_abs_6 = 0
+gv_f_primer_getll = 0
+gv_f_primer_getpp = 0
+lv_f_abs_5 = 0
+gv_n = 0
+m_primer_getll_1 ()
+gv_f_primer_getll = lv_r_getll_1
+lv_p_2 = gv_f_primer_getll
+m_primer_setpp_1 ()
+m_primer_getll_1 ()
+gv_f_primer_getll = lv_r_getll_1
+gv_n = gv_f_primer_getll
+lv_l_3 = 10
+m_primer_setll_1 ()
+gv_n = pr_primer_ll
+pr_primer_ll = 20
+lv_l_3 = - 10
+m_primer_setll_1 ()
+gv_n = pr_primer_ll
+pr_primer_ll = - 20
+m_primer_getpp_1 ()
+gv_f_primer_getpp = lv_r_getpp_4
+gv_n = gv_f_primer_getpp
+lv_p_5 = - 9
+m_primer_setabspp_1 ()
+m_primer_getpp_1 ()
+gv_f_primer_getpp = lv_r_getpp_4
+gv_n = gv_f_primer_getpp * 10
+lv_p_2 = 15
+m_primer_setpp_1 ()
+lv_p_5 = pr_primer_ll - 10
+m_primer_setabspp_1 ()
+m_primer_getll_1 ()
+gv_f_primer_getll = lv_r_getll_1
+lv_p_2 = gv_f_primer_getll
+m_primer_setpp_1 ()
+Sub m_primer_getll_1
+lv_r_getll_1 = pr_primer_ll
+Goto return_1
+return_1:
+EndSub
+Sub m_primer_setpp_1
+If lv_p_2 > 10 Then
+pr_primer_pp = 10
+ElseIf lv_p_2 < 0 Then
+pr_primer_pp = 0
+Else
+pr_primer_pp = lv_p_2
+EndIf
+EndSub
+Sub m_primer_setll_1
+If pr_primer_ll < 0 Then
+pr_primer_ll = 0
+Else
+pr_primer_ll = lv_l_3
+EndIf
+EndSub
+Sub m_primer_getpp_1
+lv_r_getpp_4 = pr_primer_pp
+Goto return_2
+return_2:
+EndSub
+Sub m_primer_setabspp_1
+lv_a_6 = lv_p_5
+m_primer_abs_2 ()
+lv_f_abs_5 = lv_r_abs_6
+pr_primer_pp = lv_f_abs_5
+If pr_primer_pp > 10 Then
+pr_primer_pp = 10
+EndIf
+EndSub
+Sub m_primer_abs_2
+If lv_a_6 < 0 Then
+lv_a_6 = 0 - lv_a_6
+EndIf
+lv_r_abs_6 = lv_a_6
+Goto return_3
+return_3:
+EndSub

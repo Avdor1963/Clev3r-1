@@ -1,0 +1,40 @@
+lv_port_2 = 0
+lv_r_2 = 0
+gv_f_touch_gettouch = 0
+gv_t = 0
+gv_a = 0
+LCD.Clear ()
+LCD.Text ( 1 , 20 , 10 , 2 , "Sensor" )
+LCD.Text ( 1 , 20 , 30 , 2 , "Touch" )
+lv_port_2 = 1
+m_touch_gettouch_2 ()
+gv_f_touch_gettouch = lv_r_2
+gv_t = gv_f_touch_gettouch
+While "True"
+lv_port_2 = 1
+m_touch_gettouch_2 ()
+gv_f_touch_gettouch = lv_r_2
+If gv_f_touch_gettouch = 1 Then
+LCD.Text ( 1 , 0 , 50 , 2 , " pressed " )
+LCD.Text ( 1 , 0 , 70 , 2 , " " )
+Else
+LCD.Text ( 1 , 0 , 50 , 2 , "not pressed" )
+LCD.Text ( 1 , 40 , 70 , 2 , " " )
+EndIf
+lv_port_2 = 1
+m_touch_gettouch_2 ()
+gv_f_touch_gettouch = lv_r_2
+LCD.Text ( 1 , 20 , 50 , 2 , gv_f_touch_gettouch )
+EndWhile
+lv_port_2 = 2
+m_touch_gettouch_2 ()
+gv_f_touch_gettouch = lv_r_2
+gv_a = 1 - gv_f_touch_gettouch
+Sub m_touch_gettouch_2
+Sensor.SetMode ( lv_port_2 , 0 )
+if Sensor.ReadPercent ( lv_port_2 ) = 0 Then
+lv_r_2 = 0
+Else
+lv_r_2 = 1
+EndIf
+EndSub

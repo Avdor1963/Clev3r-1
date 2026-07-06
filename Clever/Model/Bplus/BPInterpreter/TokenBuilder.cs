@@ -104,12 +104,16 @@ namespace Clever.Model.Bplus.BPInterpreter
                 {
                     return Tokens.DOUBLEBRACKET;
                 }
+                else if (word == "number" || word == "string")
+                {
+                    return Tokens.KEYWORD;
+                }
 
                 //Regex regex = new Regex("[0-9a-zA-Z_]");
                 MatchCollection matches = _regex.Matches(word);
                 if (matches.Count == word.Length)
                 {
-                    if (prevWord.ToLower() == "function")
+                    if (prevWord.ToLower() == "function" || line.IndexOf("number") == 9 || line.IndexOf("string") == 9)
                     {
                         return Tokens.FUNCNAME;
                     }

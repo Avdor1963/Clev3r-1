@@ -1,0 +1,83 @@
+import "LCDRu"
+' ---------------------------------------------------------------------------------------
+' Функция тестирования шрифтов
+Function Test(in number c, in number f, in number lang)
+' c - цвет 1 - черный, f - фонт 0, 1, 2 lang - 0 - английский, 1 - русский
+  LCDRu.ClearC(c)              ' очищаем экран
+  LCDRu.StopUpdate()
+  If lang = 1 And f < 2 Then     ' проверяем маленкие русские буквы
+    '                           1234567890                            123456789012
+    '                          "СЪЕШЬ ЕЩЁ                             ЭТИХ МЯГКИХ "
+    LCDRu.TextRu(c, 0,  10, f, "C}TIM TO~ " + Text.GetCharacter(34) + "NB{ VZURB{")
+    '                          "   ФРАНЦУЗКИХ БУЛОК,  "
+    LCDRu.TextRu(c, 0,  30, f, "   AHFYWEPRB{ <EKJR/a,")
+    '                          "     ДА ВЫПЕЙ ЧАЮ №   . "
+    LCDRu.TextRu(c, 0,  50, f, "     LF DSGTQ XF> # /a. ")
+    '                           1234567890123456789012
+    '                          "съешь ещё этих мягких "
+    LCDRu.TextRu(c, 0,  70, f, "c]tim to` " + Text.GetCharacter(39) + "nb[ vzurb[")
+    '                          "   французких булок,  "
+    LCDRu.TextRu(c, 0,  90, f, "   ahfyweprb[ ,ekjr/a,")
+    '                          "     да выпей чаю.    "
+    LCDRu.TextRu(c, 0, 110, f, "     lf dsgtq xf./a.  ")
+  ElseIf lang = 0 And f < 2 Then  ' проверяем маленкие английские буквы
+    '                             1234567890123456789012
+    LCDRu.TextRu(c, 0,  10, f, "/a THE QUICK BROWN FOX ")
+    LCDRu.TextRu(c, 0,  30, f, "/a   JUMPS OVER THE    ")
+    LCDRu.TextRu(c, 0,  50, f, "/a     LAZY DOG        ")
+    LCDRu.TextRu(c, 0,  70, f, "/a the quick brown fox ")
+    LCDRu.TextRu(c, 0,  90, f, "/a   jumps over the    ")
+    LCDRu.TextRu(c, 0, 110, f, "/a     lazy dog        ")
+  ElseIf lang = 1 And f = 2 Then     ' проверяем большие русские буквы
+    '                           12345678901
+    '                          "СЪЕШЬ ЕЩЁ "            12345678901
+    LCDRu.TextRu(c, 0,  10, f, "C}TIM TO~ ")         '"ЭТИХ МЯГКИХ"
+    LCDRu.TextRu(c, 0,  30, f, Text.GetCharacter(34) + "NB{ VZURB{")
+    '                          "ФРАНЦУЗКИХ "
+    LCDRu.TextRu(c, 0,  50, f, "AHFYWEPRB{ ")
+    '                          " БУЛОК  ,   ДА "
+    LCDRu.TextRu(c, 0,  70, f, " <EKJR/a,/r LF ")
+    '                          " ВЫПЕЙ ЧАЮ №  ."
+    LCDRu.TextRu(c, 0,  90, f, " DSGTQ XF> #/a.")
+    ' Показываем экран с заглавными (прописными) по первого нажатия на любую кнопку
+    LCDRu.Update()
+    Buttons.Flush()
+    Buttons.Wait()
+    LCDRu.ClearC(c)            ' очищаем экран
+    LCDRu.StopUpdate()
+    '                           123456789012
+    '                          "съешь ещё  "           123456789012
+    LCDRu.TextRu(c, 0,  10, f, "c]tim to`  ")        '"этих мягких "
+    LCDRu.TextRu(c, 0,  30, f, Text.GetCharacter(39) + "nb[ vzurb[")
+    '                          "французких "
+    LCDRu.TextRu(c, 0,  50, f, "ahfyweprb[ ")
+    '                          " булок  ,   да "
+    LCDRu.TextRu(c, 0,  70, f, " ,ekjr/a,/r lf ")
+    '                          "выпей чаю  .")
+    LCDRu.TextRu(c, 0,  90, f, "dsgtq xf./a.")
+  ElseIf lang = 0 And f = 2 Then  ' проверяем большие английские буквы
+    '                             123456789012
+    LCDRu.TextRu(c, 0,  10, f, "/a THE QUICK ")
+    LCDRu.TextRu(c, 0,  30, f, "/a BROWN FOX ")
+    LCDRu.TextRu(c, 0,  50, f, "/a JUMPS OVER")
+    LCDRu.TextRu(c, 0,  70, f, "/a    THE    ")
+    LCDRu.TextRu(c, 0,  90, f, "/a LAZY DOG  ")
+    ' Показываем экран с заглавными (прописными) по первого нажатия на любую кнопку
+    LCDRu.Update()
+    Buttons.Flush()
+    Buttons.Wait()
+    LCDRu.ClearC(c)           ' очищаем экран
+    LCDRu.StopUpdate()
+    '                             123456789012
+    LCDRu.TextRu(c, 0,  10, f, "/a the quick ")
+    LCDRu.TextRu(c, 0,  30, f, "/a brown fox ")
+    LCDRu.TextRu(c, 0,  50, f, "/a jumps over")
+    LCDRu.TextRu(c, 0,  70, f, "/a    the    ")
+    LCDRu.TextRu(c, 0,  90, f, "/a lazy dog  ")
+  EndIf
+  LCDRu.Update()
+  ' Показываем экран по первого нажатия на любую кнопку
+  Buttons.Flush()
+  Buttons.Wait()
+EndFunction
+

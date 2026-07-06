@@ -1,0 +1,9 @@
+FOLDER_KEY PRJS
+FOLDER_NAME BrkProg_SAVE
+IMAGE_LIST 1
+IMAGE ; EV3.rgf ; BrkProg_SAVE/Media/ ; BrkProg_SAVE/Media/EV3.rgf
+SOUND_LIST 0
+FILE_LIST 3
+FILE ; Font8x8_0.fnt ; BrkProg_SAVE/Files/ ; BrkProg_SAVE/Files/Font8x8_0.fnt
+FILE ; Font8x8_1.fnt ; BrkProg_SAVE/Files/ ; BrkProg_SAVE/Files/Font8x8_1.fnt
+FILE ; Font16x16.fnt ; BrkProg_SAVE/Files/ ; BrkProg_SAVE/Files/Font16x16.fnt

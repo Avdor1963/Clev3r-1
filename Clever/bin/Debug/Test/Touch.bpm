@@ -1,0 +1,8 @@
+Function getTouch(in number port, out number R)
+  Sensor.SetMode(port, 0)
+  if Sensor.ReadPercent(port) = 0 Then
+   R = 0 'return 0    
+  Else
+   R = 1' return 1
+  EndIf
+EndFunction

@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "Interpreter": {
+      "commandName": "Project",
+      "workingDirectory": "E:\\RobotTech\\Clever\\Clev3r-1\\Clev3r-1-main-debug\\Interpreter\\bin\\Debug",
+      "nativeDebugging": false
+    }
+  }
+}

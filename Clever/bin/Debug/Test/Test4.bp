@@ -1,0 +1,85 @@
+import "LCDRu"     ' Для проверки можно вывести на экран EV3 [расскомментарить строки 1 и 15 или 24] 
+' пример функции возведения в квадрат - новый формат [раскомментарить строки 3-5 и 15,16]
+'Function number Sqrt(in number par1)
+  'return par1 * par1
+'EndFunction
+
+' Просто в интерпретаторе определение функции заменяем на следующий текст - это и есть старый формат функций [раскомментарить строки 8-12 и 19-25]:
+Function Sqrt( in number par1, out number r_Sqrt)
+  sqrt = par1 * par1
+  r_Sqrt = sqrt
+  return
+EndFunction
+
+' пример множественного вызова одной функции в одном выражении в новом формате
+'LCDRu.TextRu(1, 10, 20, 2, "" + Sqrt(2) + Sqrt(3) + Sqrt(4) + Sqrt(5))  ' для преобразования числа в строку добавляем пустую строку в начало выражения
+'N = Sqrt(2) + Sqrt(3) + Sqrt(4) + Sqrt(5)                               ' простое использование без LCDRu
+
+' старый формат множественного вызова функции, то что получаем при трансляции нового формата:
+Sqrt(2, f_Sqrt)
+Sqrt(3, f_Sqrt1)
+Sqrt(4, f_Sqrt2)
+Sqrt(5, f_Sqrt3)
+
+LCDRu.TextRu(1, 10, 20, 2, "" + f_Sqrt + f_Sqrt1 + f_Sqrt2 + f_Sqrt3)    ' вывод на экран EV3
+N = f_Sqrt + f_Sqrt1 + f_Sqrt2 + f_Sqrt3                                  ' простое использование без LCDRu
+
+' Если закомментарены строки 1, 15 (то есть не выводим на EV3), 8-12, 19-25 (то есть используем новый формат функции)
+' то после предпроцессора получим следующий текст (находится в папке ~Test4/Test4.bp):
+'lv_par1_1 = 0
+'lv_r_sqrt_1 = 0
+'gv_f_sqrt = 0
+'gv_f_sqrt_1 = 0
+'gv_f_sqrt_2 = 0
+'gv_f_sqrt_3 = 0
+'gv_n = 0
+'lv_par1_1 = 2
+'f_sqrt_2 ()
+'gv_f_sqrt = lv_r_sqrt_1
+'lv_par1_1 = 3
+'f_sqrt_2 ()
+'gv_f_sqrt_1 = lv_r_sqrt_1
+'lv_par1_1 = 4
+'f_sqrt_2 ()
+'gv_f_sqrt_2 = lv_r_sqrt_1
+'lv_par1_1 = 5
+'f_sqrt_2 ()
+'gv_f_sqrt_3 = lv_r_sqrt_1
+'gv_n = gv_f_sqrt + gv_f_sqrt_1 + gv_f_sqrt_2 + gv_f_sqrt_3
+'Sub f_sqrt_2
+  'lv_r_sqrt_1 = lv_par1_1 * lv_par1_1
+  'Goto return_1
+  'return_1:
+'EndSub
+
+' Если закомментарены строки 1, 24 (то есть не выводим на EV3), 3-5, 15-16 (то есть используем новый формат функции)
+' то после предпроцессора получим следующий текст (находится в папке ~Test4/Test4.bp):
+'lv_par1_1 = 0
+'lv_r_sqrt_1 = 0
+'gv_f_sqrt = 0
+'gv_f_sqrt1 = 0
+'gv_f_sqrt2 = 0
+'gv_f_sqrt3 = 0
+'gv_n = 0
+'lv_par1_1 = 2
+'f_sqrt_2 ()
+'gv_f_sqrt = lv_r_sqrt_1
+'lv_par1_1 = 3
+'f_sqrt_2 ()
+'gv_f_sqrt1 = lv_r_sqrt_1
+'lv_par1_1 = 4
+'f_sqrt_2 ()
+'gv_f_sqrt2 = lv_r_sqrt_1
+'lv_par1_1 = 5
+'f_sqrt_2 ()
+'gv_f_sqrt3 = lv_r_sqrt_1
+'gv_n = gv_f_sqrt + gv_f_sqrt1 + gv_f_sqrt2 + gv_f_sqrt3
+'Sub f_sqrt_2
+  'lv_sqrt_1 = lv_par1_1 * lv_par1_1
+  'lv_r_sqrt_1 = lv_sqrt_1
+  'Goto return_1
+  'return_1:
+'EndSub
+
+' то есть практически один в один. если раскомментарить строки 1 и 15 или 24, то в после предпроцессора получим большую простыню с включенным модулем LCDRu.
+' но новый формат функций более понятен и логичен. Для определения функции нужно 3 строки вместо 4-5, для вызова 1 строка вместо 5. И вызов гораздо нагляднее.

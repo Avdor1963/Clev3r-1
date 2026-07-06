@@ -1,0 +1,10 @@
+import "LCDRu"
+'Заменяем на :
+Function Sqrt( in number par1, out number r_Sqrt)
+  sqrt = par1 * par1
+  r_Sqrt = sqrt
+  'return
+EndFunction
+Sqrt(15, f_Sqrt)
+A1 = f_Sqrt + 10
+LCDRu.TextRu(1, 10, 20, 2, " " + A1)

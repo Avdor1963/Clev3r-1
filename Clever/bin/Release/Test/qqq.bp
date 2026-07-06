@@ -1,0 +1,6 @@
+Function number ABS(in number A, in number B)
+  return A * B
+EndFunction
+D = 10
+F = 25
+Y = ABS(D, F) + ABS(5, 6)

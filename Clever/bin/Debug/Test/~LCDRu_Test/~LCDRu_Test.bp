@@ -1,0 +1,936 @@
+pr_lcdru_countstopupdate = 0
+pr_lcdru_lan = 0
+pr_lcdru_fontchars8x8_0 [ 0 ] = 0
+pr_lcdru_fontchars8x8_1 [ 0 ] = 0
+pr_lcdru_fontchars16x16 [ 0 ] = 0
+pr_lcdru_slash = 0
+pr_lcdru_isinitfont0 = 0
+pr_lcdru_isinitfont1 = 0
+pr_lcdru_isinitfont2 = 0
+pr_lcdru_sizex = 0
+pr_lcdru_sizey = 0
+lv_c_1 = 0
+lv_f_1 = 0
+lv_lang_1 = 0
+lv_strin_6 = ""
+lv_r_klav_6 = ""
+lv_color_15 = 0
+lv_xst_15 = 0
+lv_yst_15 = 0
+lv_font_15 = 0
+lv_txt_15 = ""
+lv_color_2 = 0
+lv_color_3 = 0
+lv_x_3 = 0
+lv_y_3 = 0
+lv_width_3 = 0
+lv_height_3 = 0
+lv_lan_8 = 0
+lv_caps_8 = 0
+lv_font_8 = 0
+lv_char_8 [ 0 ] = ""
+lv_col_9 = 0
+lv_xs_9 = 0
+lv_font_9 = 0
+lv_chr_9 = ""
+lv_col_10 = 0
+lv_x_10 = 0
+lv_y_10 = 0
+lv_font_10 = 0
+lv_chr_10 = ""
+lv_color_11 = 0
+lv_x_11 = 0
+lv_y_11 = 0
+lv_font_11 = 0
+lv_chr_11 = ""
+lv_res_11 = 0
+lv_chr_12 = ""
+lv_cod_12 = 0
+lv_res_12 = 0
+lv_fnt_13 = 0
+lv_color_14 = 0
+lv_x_14 = 0
+lv_y_14 = 0
+gv_f_klav_klav = ""
+lv_chr_6 [ 0 ] = ""
+lv_res_10 = 0
+lv_cod_11 = 0
+lv_res_11 = 0
+lv_res_15 = 0
+gv_name = ""
+gv_parol = ""
+lv_c_1 = 1
+lv_f_1 = 0
+lv_lang_1 = 0
+m_testfont_test_3 ()
+lv_c_1 = 1
+lv_f_1 = 0
+lv_lang_1 = 1
+m_testfont_test_3 ()
+lv_c_1 = 1
+lv_f_1 = 1
+lv_lang_1 = 0
+m_testfont_test_3 ()
+lv_c_1 = 1
+lv_f_1 = 1
+lv_lang_1 = 1
+m_testfont_test_3 ()
+lv_c_1 = 1
+lv_f_1 = 2
+lv_lang_1 = 0
+m_testfont_test_3 ()
+lv_c_1 = 1
+lv_f_1 = 2
+lv_lang_1 = 1
+m_testfont_test_3 ()
+lv_strin_6 = " /0DDTLBNT BVZ"
+m_klav_klav_2 ()
+gv_f_klav_klav = lv_r_klav_6
+gv_name = gv_f_klav_klav
+lv_strin_6 = " / *DDTLBNT GFHJKM"
+m_klav_klav_2 ()
+gv_f_klav_klav = lv_r_klav_6
+gv_parol = gv_f_klav_klav
+lv_color_15 = 1
+lv_xst_15 = 10
+lv_yst_15 = 20
+lv_font_15 = 2
+lv_txt_15 = "Buhjr /a: " + gv_name
+m_lcdru_textru_5 ()
+lv_color_15 = 1
+lv_xst_15 = 10
+lv_yst_15 = 40
+lv_font_15 = 2
+lv_txt_15 = "Gfhjkm /a: " + gv_parol
+m_lcdru_textru_5 ()
+Buttons.Flush ()
+Buttons.Wait ()
+Sub m_testfont_test_3
+lv_color_2 = lv_c_1
+m_lcdru_clearc_1 ()
+m_lcdru_stopupdate_0 ()
+If lv_lang_1 = 1 And lv_f_1 < 2 Then
+lv_color_15 = lv_c_1
+lv_xst_15 = 0
+lv_yst_15 = 10
+lv_font_15 = lv_f_1
+lv_txt_15 = "C}TIM TO~ " + Text.GetCharacter ( 34 ) + "NB{ VZURB{"
+m_lcdru_textru_5 ()
+lv_color_15 = lv_c_1
+lv_xst_15 = 0
+lv_yst_15 = 30
+lv_font_15 = lv_f_1
+lv_txt_15 = " AHFYWEPRB{ <EKJR /a,"
+m_lcdru_textru_5 ()
+lv_color_15 = lv_c_1
+lv_xst_15 = 0
+lv_yst_15 = 50
+lv_font_15 = lv_f_1
+lv_txt_15 = " LF DSGTQ XF> # /a. "
+m_lcdru_textru_5 ()
+lv_color_15 = lv_c_1
+lv_xst_15 = 0
+lv_yst_15 = 70
+lv_font_15 = lv_f_1
+lv_txt_15 = "c]tim to` " + Text.GetCharacter ( 39 ) + "nb[ vzurb["
+m_lcdru_textru_5 ()
+lv_color_15 = lv_c_1
+lv_xst_15 = 0
+lv_yst_15 = 90
+lv_font_15 = lv_f_1
+lv_txt_15 = " ahfyweprb[ ,ekjr /a,"
+m_lcdru_textru_5 ()
+lv_color_15 = lv_c_1
+lv_xst_15 = 0
+lv_yst_15 = 110
+lv_font_15 = lv_f_1
+lv_txt_15 = " lf dsgtq xf. /a. "
+m_lcdru_textru_5 ()
+ElseIf lv_lang_1 = 0 And lv_f_1 < 2 Then
+lv_color_15 = lv_c_1
+lv_xst_15 = 0
+lv_yst_15 = 10
+lv_font_15 = lv_f_1
+lv_txt_15 = " /a THE QUICK BROWN FOX "
+m_lcdru_textru_5 ()
+lv_color_15 = lv_c_1
+lv_xst_15 = 0
+lv_yst_15 = 30
+lv_font_15 = lv_f_1
+lv_txt_15 = " /a JUMPS OVER THE "
+m_lcdru_textru_5 ()
+lv_color_15 = lv_c_1
+lv_xst_15 = 0
+lv_yst_15 = 50
+lv_font_15 = lv_f_1
+lv_txt_15 = " /a LAZY DOG "
+m_lcdru_textru_5 ()
+lv_color_15 = lv_c_1
+lv_xst_15 = 0
+lv_yst_15 = 70
+lv_font_15 = lv_f_1
+lv_txt_15 = " /a the quick brown fox "
+m_lcdru_textru_5 ()
+lv_color_15 = lv_c_1
+lv_xst_15 = 0
+lv_yst_15 = 90
+lv_font_15 = lv_f_1
+lv_txt_15 = " /a jumps over the "
+m_lcdru_textru_5 ()
+lv_color_15 = lv_c_1
+lv_xst_15 = 0
+lv_yst_15 = 110
+lv_font_15 = lv_f_1
+lv_txt_15 = " /a lazy dog "
+m_lcdru_textru_5 ()
+ElseIf lv_lang_1 = 1 And lv_f_1 = 2 Then
+lv_color_15 = lv_c_1
+lv_xst_15 = 0
+lv_yst_15 = 10
+lv_font_15 = lv_f_1
+lv_txt_15 = "C}TIM TO~ "
+m_lcdru_textru_5 ()
+lv_color_15 = lv_c_1
+lv_xst_15 = 0
+lv_yst_15 = 30
+lv_font_15 = lv_f_1
+lv_txt_15 = Text.GetCharacter ( 34 ) + "NB{ VZURB{"
+m_lcdru_textru_5 ()
+lv_color_15 = lv_c_1
+lv_xst_15 = 0
+lv_yst_15 = 50
+lv_font_15 = lv_f_1
+lv_txt_15 = "AHFYWEPRB{ "
+m_lcdru_textru_5 ()
+lv_color_15 = lv_c_1
+lv_xst_15 = 0
+lv_yst_15 = 70
+lv_font_15 = lv_f_1
+lv_txt_15 = " <EKJR /a, /r LF "
+m_lcdru_textru_5 ()
+lv_color_15 = lv_c_1
+lv_xst_15 = 0
+lv_yst_15 = 90
+lv_font_15 = lv_f_1
+lv_txt_15 = " DSGTQ XF> # /a."
+m_lcdru_textru_5 ()
+m_lcdru_update_0 ()
+Buttons.Flush ()
+Buttons.Wait ()
+lv_color_2 = lv_c_1
+m_lcdru_clearc_1 ()
+m_lcdru_stopupdate_0 ()
+lv_color_15 = lv_c_1
+lv_xst_15 = 0
+lv_yst_15 = 10
+lv_font_15 = lv_f_1
+lv_txt_15 = "c]tim to` "
+m_lcdru_textru_5 ()
+lv_color_15 = lv_c_1
+lv_xst_15 = 0
+lv_yst_15 = 30
+lv_font_15 = lv_f_1
+lv_txt_15 = Text.GetCharacter ( 39 ) + "nb[ vzurb["
+m_lcdru_textru_5 ()
+lv_color_15 = lv_c_1
+lv_xst_15 = 0
+lv_yst_15 = 50
+lv_font_15 = lv_f_1
+lv_txt_15 = "ahfyweprb[ "
+m_lcdru_textru_5 ()
+lv_color_15 = lv_c_1
+lv_xst_15 = 0
+lv_yst_15 = 70
+lv_font_15 = lv_f_1
+lv_txt_15 = " ,ekjr /a, /r lf "
+m_lcdru_textru_5 ()
+lv_color_15 = lv_c_1
+lv_xst_15 = 0
+lv_yst_15 = 90
+lv_font_15 = lv_f_1
+lv_txt_15 = "dsgtq xf. /a."
+m_lcdru_textru_5 ()
+ElseIf lv_lang_1 = 0 And lv_f_1 = 2 Then
+lv_color_15 = lv_c_1
+lv_xst_15 = 0
+lv_yst_15 = 10
+lv_font_15 = lv_f_1
+lv_txt_15 = " /a THE QUICK "
+m_lcdru_textru_5 ()
+lv_color_15 = lv_c_1
+lv_xst_15 = 0
+lv_yst_15 = 30
+lv_font_15 = lv_f_1
+lv_txt_15 = " /a BROWN FOX "
+m_lcdru_textru_5 ()
+lv_color_15 = lv_c_1
+lv_xst_15 = 0
+lv_yst_15 = 50
+lv_font_15 = lv_f_1
+lv_txt_15 = " /a JUMPS OVER"
+m_lcdru_textru_5 ()
+lv_color_15 = lv_c_1
+lv_xst_15 = 0
+lv_yst_15 = 70
+lv_font_15 = lv_f_1
+lv_txt_15 = " /a THE "
+m_lcdru_textru_5 ()
+lv_color_15 = lv_c_1
+lv_xst_15 = 0
+lv_yst_15 = 90
+lv_font_15 = lv_f_1
+lv_txt_15 = " /a LAZY DOG "
+m_lcdru_textru_5 ()
+m_lcdru_update_0 ()
+Buttons.Flush ()
+Buttons.Wait ()
+lv_color_2 = lv_c_1
+m_lcdru_clearc_1 ()
+m_lcdru_stopupdate_0 ()
+lv_color_15 = lv_c_1
+lv_xst_15 = 0
+lv_yst_15 = 10
+lv_font_15 = lv_f_1
+lv_txt_15 = " /a the quick "
+m_lcdru_textru_5 ()
+lv_color_15 = lv_c_1
+lv_xst_15 = 0
+lv_yst_15 = 30
+lv_font_15 = lv_f_1
+lv_txt_15 = " /a brown fox "
+m_lcdru_textru_5 ()
+lv_color_15 = lv_c_1
+lv_xst_15 = 0
+lv_yst_15 = 50
+lv_font_15 = lv_f_1
+lv_txt_15 = " /a jumps over"
+m_lcdru_textru_5 ()
+lv_color_15 = lv_c_1
+lv_xst_15 = 0
+lv_yst_15 = 70
+lv_font_15 = lv_f_1
+lv_txt_15 = " /a the "
+m_lcdru_textru_5 ()
+lv_color_15 = lv_c_1
+lv_xst_15 = 0
+lv_yst_15 = 90
+lv_font_15 = lv_f_1
+lv_txt_15 = " /a lazy dog "
+m_lcdru_textru_5 ()
+EndIf
+m_lcdru_update_0 ()
+Buttons.Flush ()
+Buttons.Wait ()
+EndSub
+Sub m_lcdru_clearc_1
+If lv_color_2 = 1 and pr_lcdru_countstopupdate = 0 Then
+LCD.Clear ()
+EndIf
+If lv_color_2 = 0 Then
+lv_color_3 = 1 - lv_color_2
+lv_x_3 = 0
+lv_y_3 = 0
+lv_width_3 = 176
+lv_height_3 = 128
+m_lcdru_fillrect_5 ()
+EndIf
+EndSub
+Sub m_lcdru_fillrect_5
+LCD.FillRect ( lv_color_3 , lv_x_3 , lv_y_3 , lv_width_3 , lv_height_3 )
+EndSub
+Sub m_lcdru_stopupdate_0
+pr_lcdru_countstopupdate = pr_lcdru_countstopupdate + 1
+If pr_lcdru_countstopupdate = 1 Then
+LCD.StopUpdate ()
+EndIf
+EndSub
+Sub m_lcdru_update_0
+If pr_lcdru_countstopupdate > 0 Then
+pr_lcdru_countstopupdate = pr_lcdru_countstopupdate - 1
+EndIf
+If pr_lcdru_countstopupdate = 0 Then
+LCD.Update ()
+EndIf
+EndSub
+Sub m_klav_klav_2
+LCD.Clear ()
+EV3.SetLEDColor ( "NONE" , "NORMAL" )
+m_lcdru_stopupdate_0 ()
+LCD.FillRect ( 1 , 0 , 0 , 176 , 20 )
+LCD.FillRect ( 0 , 10 , 3 , 156 , 15 )
+LCD.Rect ( 1 , 0 , 23 , 176 , 104 )
+For lv_i_6 = 1 To 10
+LCD.Line ( 1 , lv_i_6 * 16 , 24 , lv_i_6 * 16 , 104 )
+EndFor
+For lv_j_6 = 1 To 4
+LCD.Line ( 1 , 1 , lv_j_6 * 20 + 24 , 174 , lv_j_6 * 20 + 24 )
+EndFor
+LCD.Line ( 1 , 32 , 105 , 32 , 127 )
+LCD.Line ( 1 , 64 , 105 , 64 , 127 )
+LCD.Line ( 1 , 80 , 105 , 80 , 127 )
+LCD.Line ( 1 , 112 , 105 , 112 , 127 )
+LCD.Line ( 1 , 144 , 105 , 144 , 127 )
+m_lcdru_update_0 ()
+lv_font_6 = 1
+lv_cps_6 = 1
+lv_lan_6 = 1
+pr_lcdru_lan = lv_lan_6
+lv_lan_8 = lv_lan_6
+lv_caps_8 = lv_cps_6
+lv_font_8 = lv_font_6
+m_klav_getfont_4 ()
+lv_chr_6 = lv_char_8
+lv_isoutstr_6 = 0
+If Text.StartsWith ( lv_strin_6 , " /0" ) Then
+lv_color_15 = 1
+lv_xst_15 = 15
+lv_yst_15 = 6
+lv_font_15 = 0
+lv_txt_15 = lv_strin_6
+m_lcdru_textru_5 ()
+lv_strout_6 = ""
+Else
+lv_color_15 = 1
+lv_xst_15 = 15
+lv_yst_15 = 6
+lv_font_15 = lv_font_6
+lv_txt_15 = lv_strin_6
+m_lcdru_textru_5 ()
+lv_strout_6 = lv_strin_6
+EndIf
+lv_ir_6 = Text.GetLength ( lv_strin_6 )
+Buttons.Flush ()
+lv_endred_6 = 0
+lv_xs_6 = 5
+lv_xsp_6 = 5
+lv_yr_6 = 4
+lv_yrp_6 = 4
+lv_xr_6 = 10
+lv_xrp_6 = 10
+lv_col_9 = 0
+lv_xs_9 = lv_xs_6
+lv_font_9 = lv_font_6
+lv_chr_9 = lv_chr_6 [ 48 ]
+m_klav_outcom_4 ()
+While lv_endred_6 = 0
+Buttons.Wait ()
+lv_btn_6 = Buttons.GetClicks ()
+If lv_yrp_6 < 4 Then
+lv_char_6 = lv_chr_6 [ lv_yrp_6 * 11 + lv_xrp_6 ]
+lv_col_10 = 1
+lv_x_10 = lv_xrp_6
+lv_y_10 = lv_yrp_6
+lv_font_10 = lv_font_6
+lv_chr_10 = lv_char_6
+m_klav_outchr_5 ()
+Else
+lv_col_9 = 1
+lv_xs_9 = lv_xsp_6
+lv_font_9 = lv_font_6
+lv_chr_9 = lv_chr_6 [ lv_xsp_6 + 44 ]
+m_klav_outcom_4 ()
+EndIf
+If lv_btn_6 = "U" Then
+If lv_yr_6 > 0 Then
+lv_yr_6 = lv_yr_6 - 1
+If lv_yrp_6 = 4 Then
+If lv_xs_6 = 0 Then
+lv_xr_6 = 0
+ElseIf lv_xs_6 = 1 Then
+lv_xr_6 = 2
+ElseIf lv_xs_6 = 2 Then
+lv_xr_6 = 4
+ElseIf lv_xs_6 = 3 Then
+lv_xr_6 = 6
+ElseIf lv_xs_6 = 4 Then
+lv_xr_6 = 8
+Else
+lv_xr_6 = 10
+EndIf
+EndIf
+EndIf
+ElseIf lv_btn_6 = "D" Then
+If lv_yr_6 < 4 Then
+lv_yr_6 = lv_yr_6 + 1
+If lv_yr_6 = 4 Then
+If lv_xr_6 < 2 Then
+lv_xs_6 = 0
+ElseIf lv_xr_6 < 4 Then
+lv_xs_6 = 1
+ElseIf lv_xr_6 < 5 Then
+lv_xs_6 = 2
+ElseIf lv_xr_6 < 7 Then
+lv_xs_6 = 3
+ElseIf lv_xr_6 < 9 Then
+lv_xs_6 = 4
+Else
+lv_xs_6 = 5
+EndIf
+EndIf
+EndIf
+ElseIf lv_btn_6 = "L" Then
+If lv_yr_6 < 4 Then
+If lv_xr_6 > 0 Then
+lv_xr_6 = lv_xr_6 - 1
+EndIf
+Else
+If lv_xs_6 > 0 Then
+lv_xs_6 = lv_xs_6 - 1
+EndIf
+EndIf
+ElseIf lv_btn_6 = "R" Then
+If lv_yr_6 < 4 Then
+If lv_xr_6 < 10 Then
+lv_xr_6 = lv_xr_6 + 1
+EndIf
+Else
+If lv_xs_6 < 5 Then
+lv_xs_6 = lv_xs_6 + 1
+EndIf
+EndIf
+ElseIf lv_btn_6 = "E" Then
+If lv_yr_6 < 4 Then
+lv_char_6 = lv_chr_6 [ lv_yr_6 * 11 + lv_xr_6 ]
+lv_strin_6 = Text.Append ( lv_strin_6 , lv_char_6 )
+lv_isoutstr_6 = 1
+lv_ir_6 = lv_ir_6 + 1
+Else
+If lv_xs_6 = 0 Then
+lv_endred_6 = 1
+ElseIf lv_xs_6 = 1 Then
+lv_lan_6 = 1 - lv_lan_6
+pr_lcdru_lan = lv_lan_6
+lv_lan_8 = lv_lan_6
+lv_caps_8 = lv_cps_6
+lv_font_8 = lv_font_6
+m_klav_getfont_4 ()
+lv_chr_6 = lv_char_8
+If lv_lan_6 = 0 Then
+If Text.EndsWith ( lv_strin_6 , " /r" ) Then
+lv_ir_6 = lv_ir_6 - 2
+lv_strin_6 = Text.GetSubText ( lv_strin_6 , 1 , lv_ir_6 )
+Else
+lv_strin_6 = Text.Append ( lv_strin_6 , " /a" )
+lv_ir_6 = lv_ir_6 + 2
+EndIf
+Else
+If Text.EndsWith ( lv_strin_6 , " /a" ) Then
+lv_ir_6 = lv_ir_6 - 2
+lv_strin_6 = Text.GetSubText ( lv_strin_6 , 1 , lv_ir_6 )
+Else
+lv_strin_6 = Text.Append ( lv_strin_6 , " /r" )
+lv_ir_6 = lv_ir_6 + 2
+EndIf
+EndIf
+ElseIf lv_xs_6 = 2 Then
+lv_cps_6 = 1 - lv_cps_6
+lv_lan_8 = lv_lan_6
+lv_caps_8 = lv_cps_6
+lv_font_8 = lv_font_6
+m_klav_getfont_4 ()
+lv_chr_6 = lv_char_8
+ElseIf lv_xs_6 = 3 Then
+lv_strin_6 = Text.Append ( lv_strin_6 , " " )
+lv_isoutstr_6 = 1
+lv_ir_6 = lv_ir_6 + 1
+ElseIf lv_xs_6 = 4 Then
+If Text.EndsWith ( lv_strin_6 , " /a" ) Then
+lv_ir_6 = lv_ir_6 - 2
+lv_strin_6 = Text.GetSubText ( lv_strin_6 , 1 , lv_ir_6 )
+lv_lan_6 = 1
+pr_lcdru_lan = lv_lan_6
+lv_lan_8 = lv_lan_6
+lv_caps_8 = lv_cps_6
+lv_font_8 = lv_font_6
+m_klav_getfont_4 ()
+lv_chr_6 = lv_char_8
+ElseIf Text.EndsWith ( lv_strin_6 , " /r" ) Then
+lv_ir_6 = lv_ir_6 - 2
+lv_strin_6 = Text.GetSubText ( lv_strin_6 , 1 , lv_ir_6 )
+lv_lan_6 = 0
+pr_lcdru_lan = lv_lan_6
+lv_lan_8 = lv_lan_6
+lv_caps_8 = lv_cps_6
+lv_font_8 = lv_font_6
+m_klav_getfont_4 ()
+lv_chr_6 = lv_char_8
+ElseIf Text.StartsWith ( lv_strin_6 , " /0" ) Then
+lv_isoutstr_6 = 3
+Else
+lv_ir_6 = lv_ir_6 - 1
+lv_strin_6 = Text.GetSubText ( lv_strin_6 , 1 , lv_ir_6 )
+lv_isoutstr_6 = 2
+EndIf
+ElseIf lv_xs_6 = 5 Then
+lv_endred_6 = 1
+lv_strout_6 = lv_strin_6
+EndIf
+EndIf
+EndIf
+If lv_isoutstr_6 > 0 Then
+If Text.StartsWith ( lv_strin_6 , " /0" ) Then
+lv_charn_6 = ""
+If lv_isoutstr_6 <> 3 Then
+lv_charn_6 = Text.GetSubTextToEnd ( lv_strin_6 , lv_ir_6 )
+EndIf
+lv_strin_6 = lv_charn_6
+LCD.FillRect ( 0 , 10 , 3 , 156 , 15 )
+lv_ir_6 = Text.GetLength ( lv_strin_6 )
+EndIf
+If lv_isoutstr_6 = 2 Then
+lv_color_15 = 1
+lv_xst_15 = 15
+lv_yst_15 = 6
+lv_font_15 = lv_font_6
+lv_txt_15 = lv_strin_6 + " "
+m_lcdru_textru_5 ()
+Else
+lv_color_15 = 1
+lv_xst_15 = 15
+lv_yst_15 = 6
+lv_font_15 = lv_font_6
+lv_txt_15 = lv_strin_6
+m_lcdru_textru_5 ()
+EndIf
+lv_isoutstr_6 = 0
+EndIf
+If lv_yr_6 < 4 Then
+lv_char_6 = lv_chr_6 [ lv_yr_6 * 11 + lv_xr_6 ]
+lv_col_10 = 0
+lv_x_10 = lv_xr_6
+lv_y_10 = lv_yr_6
+lv_font_10 = lv_font_6
+lv_chr_10 = lv_char_6
+m_klav_outchr_5 ()
+Else
+lv_col_9 = 0
+lv_xs_9 = lv_xs_6
+lv_font_9 = lv_font_6
+lv_chr_9 = lv_chr_6 [ lv_xs_6 + 44 ]
+m_klav_outcom_4 ()
+EndIf
+lv_yrp_6 = lv_yr_6
+lv_xrp_6 = lv_xr_6
+lv_xsp_6 = lv_xs_6
+EndWhile
+m_lcdru_clear_0 ()
+lv_r_klav_6 = lv_strout_6
+Goto return_1
+return_1:
+EndSub
+Sub m_lcdru_clear_0
+LCD.Clear ()
+EndSub
+Sub m_klav_getfont_4
+If lv_lan_8 = 0 And lv_caps_8 = 0 Then
+lv_s_8 = "1234567890]qwertyuiop[asdfghjkl;" + Text.GetCharacter ( 39 ) + "zxcvbnm,. / +"
+For lv_i_8 = 1 To 44
+lv_char_8 [ lv_i_8 - 1 ] = Text.GetSubText ( lv_s_8 , lv_i_8 , 1 )
+EndFor
+lv_char_8 [ 44 ] = " /aesc"
+lv_char_8 [ 45 ] = " /aeng"
+lv_char_8 [ 46 ] = " /al"
+lv_char_8 [ 47 ] = " "
+lv_char_8 [ 48 ] = " /adel"
+lv_char_8 [ 49 ] = " /aentr"
+ElseIf lv_lan_8 = 0 And lv_caps_8 = 1 Then
+lv_s_8 = "~`# /?|\( )@}QWERTYUIOP{ASDFGHJKL:" + Text.GetCharacter ( 34 ) + "ZXCVBNM<>_="
+For lv_i_8 = 1 To 44
+lv_char_8 [ lv_i_8 - 1 ] = Text.GetSubText ( lv_s_8 , lv_i_8 , 1 )
+EndFor
+lv_char_8 [ 44 ] = " /aESC"
+lv_char_8 [ 45 ] = " /aENG"
+lv_char_8 [ 46 ] = " /aU"
+lv_char_8 [ 47 ] = " "
+lv_char_8 [ 48 ] = " /aDEL"
+lv_char_8 [ 49 ] = " /aENTR"
+ElseIf lv_lan_8 = 1 And lv_caps_8 = 0 Then
+lv_s_8 = "1234567890 -qwertyuiop]asdfghjkl;[zxcvbnm,.`" + Text.GetCharacter ( 39 )
+For lv_i_8 = 1 To 44
+lv_char_8 [ lv_i_8 - 1 ] = Text.GetSubText ( lv_s_8 , lv_i_8 , 1 )
+EndFor
+lv_char_8 [ 44 ] = "jnv"
+lv_char_8 [ 45 ] = "hec"
+lv_char_8 [ 46 ] = "c"
+lv_char_8 [ 47 ] = " "
+lv_char_8 [ 48 ] = "pf,"
+lv_char_8 [ 49 ] = "dsg"
+ElseIf lv_lan_8 = 1 And lv_caps_8 = 1 Then
+lv_s_8 = "!@#$ +^& *( )_QWERTYUIOP{ASDFGHJKL:}ZXCVBNM<>~" + Text.GetCharacter ( 34 )
+For lv_i_8 = 1 To 44
+lv_char_8 [ lv_i_8 - 1 ] = Text.GetSubText ( lv_s_8 , lv_i_8 , 1 )
+EndFor
+lv_char_8 [ 44 ] = "JNV"
+lv_char_8 [ 45 ] = "HEC"
+lv_char_8 [ 46 ] = "P"
+lv_char_8 [ 47 ] = " "
+lv_char_8 [ 48 ] = "PF<"
+lv_char_8 [ 49 ] = "DSG"
+EndIf
+m_lcdru_stopupdate_0 ()
+For lv_y_8 = 0 To 3
+For lv_x_8 = 0 To 10
+lv_col_10 = 1
+lv_x_10 = lv_x_8
+lv_y_10 = lv_y_8
+lv_font_10 = lv_font_8
+lv_chr_10 = lv_char_8 [ lv_y_8 * 11 + lv_x_8 ]
+m_klav_outchr_5 ()
+EndFor
+EndFor
+For lv_i_8 = 44 To 49
+lv_col_9 = 1
+lv_xs_9 = lv_i_8 - 44
+lv_font_9 = lv_font_8
+lv_chr_9 = lv_char_8 [ lv_i_8 ]
+m_klav_outcom_4 ()
+EndFor
+m_lcdru_update_0 ()
+EndSub
+Sub m_klav_outcom_4
+If lv_xs_9 = 0 Then
+LCD.FillRect ( 1 - lv_col_9 , 2 , 107 , 29 , 17 )
+lv_color_15 = lv_col_9
+lv_xst_15 = 4
+lv_yst_15 = 110
+lv_font_15 = lv_font_9
+lv_txt_15 = lv_chr_9
+m_lcdru_textru_5 ()
+ElseIf lv_xs_9 = 1 Then
+LCD.FillRect ( 1 - lv_col_9 , 34 , 107 , 29 , 17 )
+lv_color_15 = lv_col_9
+lv_xst_15 = 36
+lv_yst_15 = 110
+lv_font_15 = lv_font_9
+lv_txt_15 = lv_chr_9
+m_lcdru_textru_5 ()
+ElseIf lv_xs_9 = 2 Then
+LCD.FillRect ( 1 - lv_col_9 , 66 , 107 , 14 , 17 )
+lv_color_15 = lv_col_9
+lv_xst_15 = 68
+lv_yst_15 = 110
+lv_font_15 = lv_font_9
+lv_txt_15 = lv_chr_9
+m_lcdru_textru_5 ()
+ElseIf lv_xs_9 = 3 Then
+LCD.FillRect ( 1 - lv_col_9 , 82 , 107 , 29 , 17 )
+LCD.FillRect ( lv_col_9 , 86 , 115 , 21 , 4 )
+ElseIf lv_xs_9 = 4 Then
+LCD.FillRect ( 1 - lv_col_9 , 114 , 106 , 29 , 19 )
+lv_color_15 = lv_col_9
+lv_xst_15 = 116
+lv_yst_15 = 110
+lv_font_15 = lv_font_9
+lv_txt_15 = lv_chr_9
+m_lcdru_textru_5 ()
+ElseIf lv_xs_9 = 5 Then
+LCD.FillRect ( 1 - lv_col_9 , 146 , 106 , 29 , 19 )
+lv_color_15 = lv_col_9
+lv_xst_15 = 148
+lv_yst_15 = 110
+lv_font_15 = lv_font_9
+lv_txt_15 = lv_chr_9
+m_lcdru_textru_5 ()
+EndIf
+EndSub
+Sub m_klav_outchr_5
+LCD.FillRect ( 1 - lv_col_10 , 2 + lv_x_10 * 16 , 26 + lv_y_10 * 20 , 13 , 17 )
+lv_color_11 = lv_col_10
+lv_x_11 = 4 + lv_x_10 * 16
+lv_y_11 = 30 + lv_y_10 * 20
+lv_font_11 = lv_font_10
+lv_chr_11 = lv_chr_10
+m_lcdru_printchar_6 ()
+lv_res_10 = lv_res_11
+EndSub
+Sub m_lcdru_printchar_6
+lv_chr_12 = lv_chr_11
+m_lcdru_ischarru_3 ()
+lv_cod_11 = lv_cod_12
+lv_res_11 = lv_res_12
+If lv_res_11 = 0 Then
+LCD.Text ( lv_color_11 , lv_x_11 , lv_y_11 , lv_font_11 , lv_chr_11 )
+ElseIf lv_res_11 = 1 Then
+m_lcdru_stopupdate_0 ()
+lv_fnt_13 = lv_font_11
+m_lcdru_initfont_1 ()
+If lv_font_11 = 0 Then
+lv_offset_11 = lv_cod_11 * 8
+For lv_jy_11 = 0 To 7
+lv_tekbyte_11 = pr_lcdru_fontchars8x8_0 [ lv_jy_11 + lv_offset_11 ]
+For lv_ix_11 = 0 To 7
+lv_tekbit_11 = Byte.BIT ( lv_tekbyte_11 , 8 - lv_ix_11 )
+lv_tekbit_11 = Byte.XOR ( lv_tekbit_11 , 1 - lv_color_11 )
+lv_color_14 = lv_tekbit_11
+lv_x_14 = lv_x_11 + lv_ix_11
+lv_y_14 = lv_y_11 + lv_jy_11
+m_lcdru_pixel_3 ()
+EndFor
+EndFor
+ElseIf lv_font_11 = 1 Then
+lv_offset_11 = lv_cod_11 * 8
+For lv_jy_11 = 0 To 7
+lv_tekbyte_11 = pr_lcdru_fontchars8x8_1 [ lv_jy_11 + lv_offset_11 ]
+For lv_ix_11 = 0 To 7
+lv_tekbit_11 = Byte.BIT ( lv_tekbyte_11 , 8 - lv_ix_11 )
+lv_tekbit_11 = Byte.XOR ( lv_tekbit_11 , 1 - lv_color_11 )
+lv_color_14 = lv_tekbit_11
+lv_x_14 = lv_x_11 + lv_ix_11
+lv_y_14 = lv_y_11 + lv_jy_11
+m_lcdru_pixel_3 ()
+EndFor
+EndFor
+ElseIf lv_font_11 = 2 Then
+lv_offset_11 = lv_cod_11 * 16
+For lv_jy_11 = 0 To 15
+lv_tekbyte_11 = pr_lcdru_fontchars16x16 [ lv_jy_11 + lv_offset_11 ]
+For lv_ix_11 = 0 To 15
+lv_tekbit_11 = Byte.BIT ( lv_tekbyte_11 , 16 - lv_ix_11 )
+lv_tekbit_11 = Byte.XOR ( lv_tekbit_11 , 1 - lv_color_11 )
+LCD.Pixel ( lv_tekbit_11 , lv_x_11 + lv_ix_11 , lv_y_11 + lv_jy_11 )
+EndFor
+EndFor
+EndIf
+m_lcdru_update_0 ()
+EndIf
+EndSub
+Sub m_lcdru_ischarru_3
+lv_res_12 = 0
+If lv_chr_12 = " /" Then
+If pr_lcdru_slash = 0 Then
+pr_lcdru_slash = 1
+lv_res_12 = 2
+EndIf
+ElseIf pr_lcdru_slash = 1 Then
+pr_lcdru_slash = 0
+If lv_chr_12 = "a" Then
+pr_lcdru_lan = 0
+lv_res_12 = 2
+ElseIf lv_chr_12 = "r" Then
+pr_lcdru_lan = 1
+lv_res_12 = 2
+ElseIf lv_chr_12 = "0" Or lv_chr_12 = "1" Or lv_chr_12 = "2" Then
+lv_res_12 = 2
+EndIf
+EndIf
+lv_cod_12 = Text.GetCharacterCode ( lv_chr_12 )
+If pr_lcdru_lan = 1 And lv_res_12 < 2 Then
+If lv_cod_12 >= 65 And lv_cod_12 <= 90 Then
+lv_cod_12 = lv_cod_12 - 65
+lv_res_12 = 1
+ElseIf lv_chr_12 = "<" Then
+lv_cod_12 = 26
+lv_res_12 = 1
+ElseIf lv_chr_12 = "~" Then
+lv_cod_12 = 27
+lv_res_12 = 1
+ElseIf lv_chr_12 = ":" Then
+lv_cod_12 = 28
+lv_res_12 = 1
+ElseIf lv_chr_12 = "{" Then
+lv_cod_12 = 29
+lv_res_12 = 1
+ElseIf lv_chr_12 = "}" Then
+lv_cod_12 = 30
+lv_res_12 = 1
+ElseIf lv_cod_12 = 34 Then
+lv_cod_12 = 31
+lv_res_12 = 1
+ElseIf lv_chr_12 = "|" Then
+lv_cod_12 = 31
+lv_res_12 = 1
+ElseIf lv_chr_12 = ">" Then
+lv_cod_12 = 32
+lv_res_12 = 1
+ElseIf lv_cod_12 >= 97 And lv_cod_12 <= 122 Then
+lv_cod_12 = lv_cod_12 - 64
+lv_res_12 = 1
+ElseIf lv_chr_12 = "," Then
+lv_cod_12 = 59
+lv_res_12 = 1
+ElseIf lv_chr_12 = "`" Then
+lv_cod_12 = 60
+lv_res_12 = 1
+ElseIf lv_chr_12 = ";" Then
+lv_cod_12 = 61
+lv_res_12 = 1
+ElseIf lv_chr_12 = "[" Then
+lv_cod_12 = 62
+lv_res_12 = 1
+ElseIf lv_chr_12 = "]" Then
+lv_cod_12 = 63
+lv_res_12 = 1
+ElseIf lv_cod_12 = 39 Then
+lv_cod_12 = 64
+lv_res_12 = 1
+ElseIf lv_chr_12 = "\" Then
+lv_cod_12 = 64
+lv_res_12 = 1
+ElseIf lv_chr_12 = "." Then
+lv_cod_12 = 65
+lv_res_12 = 1
+ElseIf lv_chr_12 = "#" Then
+lv_cod_12 = 66
+lv_res_12 = 1
+EndIf
+EndIf
+EndSub
+Sub m_lcdru_initfont_1
+If lv_fnt_13 = 0 Then
+If pr_lcdru_isinitfont0 = 0 Then
+lv_ffilefont_13 = EV3File.OpenRead ( "Font8x8_0.fnt" )
+pr_lcdru_fontchars8x8_0 = EV3File.ReadNumberArray ( lv_ffilefont_13 , 536 )
+pr_lcdru_isinitfont0 = 1
+EV3File.Close ( lv_ffilefont_13 )
+EndIf
+ElseIf lv_fnt_13 = 1 Then
+If pr_lcdru_isinitfont1 = 0 Then
+lv_ffilefont_13 = EV3File.OpenRead ( "Font8x8_1.fnt" )
+pr_lcdru_fontchars8x8_1 = EV3File.ReadNumberArray ( lv_ffilefont_13 , 536 )
+pr_lcdru_isinitfont1 = 1
+EV3File.Close ( lv_ffilefont_13 )
+EndIf
+ElseIf lv_fnt_13 = 2 Then
+If pr_lcdru_isinitfont2 = 0 Then
+lv_ffilefont_13 = EV3File.OpenRead ( "Font16x16.fnt" )
+pr_lcdru_fontchars16x16 = EV3File.ReadNumberArray ( lv_ffilefont_13 , 1072 )
+pr_lcdru_isinitfont2 = 1
+EV3File.Close ( lv_ffilefont_13 )
+EndIf
+EndIf
+EndSub
+Sub m_lcdru_pixel_3
+LCD.Pixel ( lv_color_14 , lv_x_14 , lv_y_14 )
+EndSub
+Sub m_lcdru_textru_5
+lv_lanst_15 = pr_lcdru_lan
+lv_sizexst_15 = pr_lcdru_sizex
+lv_sizeyst_15 = pr_lcdru_sizey
+If lv_font_15 = 2 Then
+pr_lcdru_sizex = 16
+pr_lcdru_sizey = 16
+Else
+pr_lcdru_sizex = 8
+pr_lcdru_sizey = 8
+EndIf
+pr_lcdru_lan = 1
+pr_lcdru_slash = 0
+lv_xc_15 = lv_xst_15
+lv_yc_15 = lv_yst_15
+For lv_i_15 = 1 To Text.GetLength ( lv_txt_15 )
+lv_tekchar_15 = Text.GetSubText ( lv_txt_15 , lv_i_15 , 1 )
+lv_color_11 = lv_color_15
+lv_x_11 = lv_xc_15
+lv_y_11 = lv_yc_15
+lv_font_11 = lv_font_15
+lv_chr_11 = lv_tekchar_15
+m_lcdru_printchar_6 ()
+lv_res_15 = lv_res_11
+If lv_res_15 <> 2 Then
+lv_xc_15 = lv_xc_15 + pr_lcdru_sizex
+EndIf
+EndFor
+pr_lcdru_lan = lv_lanst_15
+pr_lcdru_sizex = lv_sizexst_15
+pr_lcdru_sizey = lv_sizeyst_15
+EndSub

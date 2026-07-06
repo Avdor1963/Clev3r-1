@@ -1,0 +1,103 @@
+' Создаем массив из rows строк и columns колонок
+' Переводим в обычный одномерный массив, отслеживая индекс по формуле М[Y, X] = handle[I] (I = Y*N_Columns + X)
+number handle   ' ссылка на наш массив
+number Error    ' 0 - нет ошибок, 1 - выход rows за диапазон 0 - N_Rows, 2 - выход columns за диапазон 0 - N_Columns
+' 3 - выход за диапазон строк и столбцов (используем также и при увеличении размера массива)
+number Avto     ' при ошибке: 0 - ничего не делать, 1 - увеличить размер массива,
+'             2 - заменить ошибочное значение на максимальное значение
+
+Function Create(in number rows, in number columns, in number value)', out number handle)
+  size = rows * columns               ' Общий размер одномерного массива
+  N_Rows = rows                       ' Запоминаем число строк
+  N_Columns = columns                 ' и число колонок (элементов в строке)
+  handle = Row.Init(size, value)      ' Создаем одномерный массив
+  Error = 0                           ' пока нет ошибок
+  Avto = 1                            ' автоматически уведичивать размер массива при выходе из диапазона
+EndFunction
+
+Function Resize(in number rows, in number columns)
+  size = rows * columns               ' Общий размер одномерного массива
+  N_Rows = rows                       ' Запоминаем число строк
+  N_Columns = columns                 ' и число колонок (элементов в строке)
+  Row.Resize(handle, size)            ' Изменяем размер одномерного массива
+  Error = 0                           ' пока нет ошибок
+EndFunction
+
+Function Read(in number row, in number column, out number value)
+  Check(row, column)                                   ' Проверяем на выходы из диапазона
+  value = Row.Read(handle, N_Columns * row + column)   ' считываем значение из ячейки массива
+EndFunction
+
+Function Write(in number row, in number column, in number value)
+  Check(row, column)                                   ' Проверяем на выходы из диапазона
+  Row.Write(handle, N_Columns * row + column, value)   ' записываем значение в ячейку массива
+EndFunction
+
+Function ReadRow(in number row, out number[] array)
+  Check(row, N_Columns - 1)                            ' Проверяем на выходы из диапазона
+  For i = 0 To N_Columns - 1 Step 1                    ' и считываем поэлементно всю строку
+    array[i] = Row.Read(handle, N_Columns * row + i)   '
+  EndFor
+EndFunction
+
+Function WriteRow(in number row, in number[] array)
+  Check(row, N_Columns - 1)                            ' Проверяем на выходы из диапазона
+  For i = 0 To N_Columns - 1 Step 1                    ' и записываем поэлементно всю строку
+    Row.Write(handle, N_Columns * row + i, array[i])   '
+  EndFor
+EndFunction
+
+Function ReadColumn(in number column, out number[] array)
+  Check(N_Rows - 1, column)                            ' Проверяем на выходы из диапазона
+  For i = 0 To N_Rows - 1 Step 1                       ' и считываем поэлементно всю колонку
+    array[i] = Row.Read(handle, i + N_Rows * column + i)   '
+  EndFor
+EndFunction
+
+Function WriteColumn(in number column, in number[] array)
+  Check(N_Rows - 1, column)                            ' Проверяем на выходы из диапазона
+  For i = 0 To N_Rows - 1 Step 1                       ' и записываем поэлементно всю колонку
+    Row.Write(handle, i + N_Rows * column, array[i])   '
+  EndFor
+EndFunction
+
+' N_Rows находится в секции private - но сейчас просто возвращаем его
+Function OneRowSize (out number rowSize)
+  rowSize = N_Rows
+EndFunction
+
+' N_Columns находится в секции private - но сейчас просто возвращаем его
+Function OneColumnSize (out number columnSize)
+  columnSize = N_Columns
+EndFunction
+
+private
+
+number N_Rows             ' всего строк матрицы
+number N_Columns          ' всего столбцов матрицы
+
+Function Check(in number r, in number c)
+  Error = 0                   '
+  If r >= N_Rows Then         ' превышен диапазон строк?
+    Error = 1                 ' выдаем ощибку 1
+    If Avto = 2 Then          ' и
+      r = N_Rows-1            ' задаем последную строку
+    EndIf
+    If c >= N_Columns Then    ' а если одновременно превышен и диапазон колонок?
+      Error = 3               ' то выдаем ощибку 3
+      If Avto = 2 Then        ' и
+        c = N_Columns-1       ' также задаем последную колонку
+      EndIf
+    EndIf
+  ElseIf c >= N_Columns Then  ' превышен только диапазон колонок?
+    Error = 2                 ' выдаем ощибку 2
+    If Avto = 2 Then          ' и
+      c = N_Columns-1         ' и задаем последнюю колонку
+    EndIf
+  EndIf
+  If Avto = 1 Then            ' Изменять размер массива
+    If Error > 0 Then         ' при ошибке выхода из диапазона?
+      Resize(r, c)            ' Да - увеличиваем размер
+    EndIf
+  EndIf
+EndFunction

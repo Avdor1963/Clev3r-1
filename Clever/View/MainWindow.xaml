@@ -22,8 +22,8 @@
         PreviewKeyDown="WindowWPF_PreviewKeyDown">
     <Grid x:Name="mainGrid" Background="#414659">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="133*"/>
-            <ColumnDefinition Width="601*"/>
+            <ColumnDefinition Width="189*"/>
+            <ColumnDefinition Width="178*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" MinHeight="65"/>

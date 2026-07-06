@@ -79,7 +79,14 @@ namespace Interpreter.Parsers
                 if (!Data.Project.Modules.ContainsKey(name.ToLower()))
                 {
                     var tmpText = File.ReadAllLines(tmpPath);
-                    var lines = GetAllLines(tmpPath, tmpText);
+                    // Этот текст
+                    //var lines = GetAllLines(tmpPath, tmpText);
+                    //if (Data.Errors.Count > 0)
+                    //    return;
+
+                    // Заменяем на этот
+                    var tmpText1 = new PredFunc().Exec(line.FileName, tmpText, 2).ToArray();
+                    var lines = GetAllLines(tmpPath, tmpText1);
                     if (Data.Errors.Count > 0)
                         return;
 

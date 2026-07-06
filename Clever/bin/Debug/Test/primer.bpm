@@ -1,0 +1,60 @@
+number LL   ' Глобальная переменная общего доступа 
+
+' Функция задания значения глобальной переменной общего доступа
+' В принципе тоже самое что и primer.LL = L
+Function SetLL(in number L)
+  If LL < 0 Then
+    LL = 0            ' в функции запрещаем отрицательные значения для LL,
+    ' а вот при использовании primer.LL - можно задать отрицательное число.
+  Else 
+    LL = L            ' Положительные значения задавать функцией можно
+  EndIf
+EndFunction
+
+' Функция чтения значения глобальной переменной общего доступа
+' в принципе тоже самое что и A = primer.LL
+Function number GetLL()   ' 
+    return LL
+EndFunction
+
+' Функция задания значения глобальной переменной приватного доступа
+' В принципе нельзя использовать primer.PP = P
+Function SetPP(in number P)
+  If P > 10 Then 
+    PP = 10
+  ElseIf P < 0 Then
+    PP = 0
+  Else
+    PP = P
+  EndIf
+EndFunction
+
+' Пример задания приватного свойства через приватную функцию
+Function SetAbsPP(in number P)
+  PP = Abs(P)
+  If PP > 10 Then
+    PP = 10
+  EndIf
+EndFunction
+
+' Функция чтения значения глобальной переменной общего доступа
+' в принципе использовать в основной программе в которую импортирован модуль A = primer.PP нельзя. только через GetPP
+Function number GetPP()   ' 
+    return PP
+EndFunction
+
+private
+
+number PP   ' Глобальная переменная приватного доступа - видна только в этом модуле, в свойствах модуля primer - не видна
+
+'P = Abs(-15      ' так нельзя, потому что в модуле операторы допускается только в теле функции или подпрограммы
+'PP = Abs(15)
+
+Function number Abs(in number A)
+  If A < 0 Then
+    A = 0 - A
+  EndIf
+  return A
+EndFunction           
+
+

@@ -1,0 +1,16 @@
+import "primer"
+N = primer.GetLL()                 'работает
+P = Abs(-15)
+PP = Abs(15)
+primer.SetLL(10)                    ' работает
+N = primer.LL                     ' не работает - лишняя скобка или нет переменной f_primer.ll             
+primer.SetLL(100)                    ' работает
+N = primer.LL                           ' не работает - лишняя скобка или нет переменной f_primer.ll
+N1 = primer.GetLL()                       ' работает  
+
+Function number Abs(in number A)
+  If A < 0 Then
+    A = 0 - A
+  EndIf
+  return A
+EndFunction           

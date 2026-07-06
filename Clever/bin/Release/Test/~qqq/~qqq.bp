@@ -1,0 +1,24 @@
+lv_a_1 = 0
+lv_b_1 = 0
+lv_r_abs_1 = 0
+gv_f_abs = 0
+gv_f_abs_1 = 0
+gv_d = 0
+gv_f = 0
+gv_y = 0
+gv_d = 10
+gv_f = 25
+lv_a_1 = gv_d
+lv_b_1 = gv_f
+f_abs_3 ()
+gv_f_abs = lv_r_abs_1
+lv_a_1 = 5
+lv_b_1 = 6
+f_abs_3 ()
+gv_f_abs_1 = lv_r_abs_1
+gv_y = gv_f_abs + gv_f_abs_1
+Sub f_abs_3
+lv_r_abs_1 = lv_a_1 * lv_b_1
+Goto return_1
+return_1:
+EndSub

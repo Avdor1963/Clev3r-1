@@ -34,5 +34,19 @@ namespace Clever.View.Dialogs
             Process.Start(link.NavigateUri.ToString());
             this.DialogResult = true;
         }
+
+        private void Avdor_Click(object sender, RoutedEventArgs e)
+        {
+            var link = (Hyperlink)sender;
+            Process.Start(link.NavigateUri.ToString());
+            this.DialogResult = true;
+        }
+
+        private void AvdorGit_Click(object sender, RoutedEventArgs e)
+        {
+            var link = (Hyperlink)sender;
+            Process.Start(link.NavigateUri.ToString());
+            this.DialogResult = true;
+        }
     }
 }

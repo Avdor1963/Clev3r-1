@@ -1,0 +1,22 @@
+lv_a_1 = 0
+lv_b_1 = 0
+lv_c_1 = 0
+gv_t = 0
+gv_y = 0
+gv_v = 0
+gv_d = 0
+gv_f = 0
+lv_a_1 = 5
+lv_b_1 = 6
+f_abs_3 ()
+gv_t = lv_c_1
+gv_v = gv_t
+gv_d = 10
+gv_f = 25
+lv_a_1 = gv_d
+lv_b_1 = gv_f
+f_abs_3 ()
+gv_y = lv_c_1
+Sub f_abs_3
+lv_c_1 = lv_a_1 * lv_b_1
+EndSub

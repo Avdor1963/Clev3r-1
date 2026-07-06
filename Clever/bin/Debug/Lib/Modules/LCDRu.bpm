@@ -1,0 +1,774 @@
+' заготовка для вывода на экран ЖКИ руских букв.
+number WidthLCDEV3            ' Ширина экрана ЖКИ контроллера EV3 в пикселях (176)
+number HeightLCDEV3           ' Высота экрана ЖКИ контроллера EV3 в пикселях (128)
+number sizeY                  ' Высота текущего шрифта
+number sizeX                  ' Ширина текуего шрифта
+number outNext                ' Признак вывода строки в несколько строк экрана ЖКИ (1) или в одну строку (0)
+number IsInitFont0            ' Признак что фонт 0 не загружен (0) или загружен (1)
+number[] FontChars8x8_0       ' Массив для фонта 0
+number IsInitFont1            ' Признак загрузки фонта 1
+number[] FontChars8x8_1       ' Массив для фонта 1
+number IsInitFont2            ' Признак загрузки фонта 2
+number[] FontChars16x16       ' Массив для фонта 2
+
+' Функции обертки для функций стандартного модуля LCD
+Function StopUpdate()
+  LCD.StopUpdate()
+EndFunction
+Function Update()
+  LCD.Update()
+EndFunction
+Function Clear()
+  LCD.Clear()
+EndFunction
+Function Pixel(in number color, in number x, in number y)
+  LCD.Pixel(color, x, y)
+EndFunction
+Function Line(in number color, in number x1, in number y1, in number x2, in number y2)
+  LCD.Line(color, x1, y1, x2, y2)
+EndFunction
+Function Circle(in number color, in number x, in number y, in number radius)
+  LCD.Circle(color, x, y, radius)
+EndFunction
+Function Text(in number color, in number x, in number y, in number font, in string text)
+  LCD.Text(color, x, y, font, text)
+EndFunction
+Function Write(in number x, in number y, in string text)
+  LCD.Write(x, y, text)
+EndFunction
+Function FillRect(in number color, in number x, in number y, in number width, in number height)
+  LCD.FillRect(color, x, y, width, height)
+EndFunction
+Function Rect(in number color, in number x, in number y, in number width, in number height)
+  LCD.Rect(color, x, y, width, height)
+EndFunction
+Function InverseRect(in number x, in number y, in number width, in number height)
+  LCD.InverseRect(x, y, width, height)
+EndFunction
+Function FillCircle(in number color, in number x, in number y, in number radius)
+  LCD.FillCircle(color, x, y, radius)
+EndFunction
+Function BmpFile(in number color, in number x, in number y, in string filename)
+  LCD.BmpFile(color, x, y, filename)
+EndFunction
+' =========================================================================================================
+' Добавленные функции 
+' =============================================
+' Функция очистки экрана заданным цветом color = 0 - черным, 1 - белым
+' После должны выводится строки комплементарным цветом, которым очищали экран - то есть черным по белому
+' или белым по черному
+Function ClearC(in number color)
+  LCD.Clear()
+  If color = 0 Then
+    FillRect(1-color, 0, 0, 176, 128)     ' Чёрный фон для белых букв или белый фон для черных букв
+  EndIf
+EndFunction
+' ----------------------------------------------
+' Функция экранная клавиатура для ввода русских слов с экрана в строку ввода.
+' Возвращает введенную строку в кодировке латинской раскладкой для вывода на ЖКИ методом TextRu
+' Шрифт символов клавиатуры - 1 - 8х8 жирный, чтобы весь набор помещаелся на экран
+' StrIn - входная строка с начальным значением, которое нужно отредактировать.
+' StrOut - выходная строка с введенным (отредактированным) текстом
+'------------------------
+' 01234567890123456789012
+'________________________
+' ! @ # $ % ^ & * ( ) }
+' Q W E R T Y U I O P {
+' A S D F G H J K L : "
+' Z X C V B N M , < > ?
+' esc ENG ▄▄▄▄ del entr
+'------------------------
+' 01234567890123456789012
+'________________________
+' 1 2 3 4 5 6 7 8 9 0 ]
+' q w e r t y u i o p [
+' a s d f g h j k l ; '
+' z x c v b n m , . ` /
+' esc eng ▄▄▄▄ del entr
+'------------------------
+' 01234567890123456789012
+'_0_1_2_3_4_5_6_7_8_9_0_
+' ! @ № % : ? * ( ) - +
+' Й Ц У К Е Н Г Ш Щ З Х
+' Ф Ы В А П Р О Л Д Ж Э
+' Я Ч С М И Т Ь Б Ю Ё Ъ
+' ОТМ РУС З ▄▄▄ ЗАБ ВЫП
+'------------------------
+' 01234567890123456789012
+'________________________
+' 1 2 3 4 5 6 7 8 9 0 \
+' й ц у к е н г ш щ з х
+' ф ы в а п р о л д ж э
+' я ч с м и т ь б ю ё ъ
+' отм рус с ▄▄▄ заб вып
+
+Function Klav(in string StrIn, out string StrOut)
+  ' прорисовываем границы поля ввода и сетку для символов клавиатуры
+  LCD.Clear()
+  EV3.SetLEDColor("NONE", "NORMAL")
+  LCD.StopUpdate()
+  LCD.FillRect(1, 0, 0, 176, 20)          ' Поле вводимой (редактируемой) строки
+  LCD.FillRect(0, 10, 3, 156, 15)         ' рисуем рамку с широкими боковыми сторонами
+  LCD.Rect(1, 0, 23, 176, 104)            ' рисуем рамку для клавиатуры
+  For I = 1 To 10                         ' рисуем 
+    LCD.Line(1, I*16, 24, I*16, 104)      ' сетку для букв (горизонтальные линии)
+  EndFor
+  For J = 1 To 4                          
+    LCD.Line(1, 1, J*20+24, 174, J*20+24) ' (вертикальные линии)
+  EndFor
+  LCD.Line(1,  32, 105,  32, 127)         ' рисуем сетку для команд
+  LCD.Line(1,  64, 105,  64, 127)
+  LCD.Line(1,  80, 105,  80, 127)
+  LCD.Line(1, 112, 105, 112, 127)
+  LCD.Line(1, 144, 105, 144, 127)
+  LCD.Update()                            '
+  ' задаем начальные параметры клавиатуры по умолчанию
+  font = 1                      ' всегда 1 фонт
+  cps = 1                       ' прописные - 0  или заглавные - 1 символы (меняем по команде)
+  lan = 1                       ' язык английский (0) или русский (1) (меняем по команде)
+  GetFont(cps, font, Chr)       ' прорисовываем символы клавиатуры на экране и задаем массив символов
+  isOutStr = 0                  ' признак что не надо пока выводить строку в поле ввода
+  If Text.StartsWith(StrIn, "/0") Then    ' Если строка начинается с "/0" - то
+     TextRu(1, 15, 6, 0, StrIn) ' Выводим 0-м фонтом строку подсказку (приглашение)
+     StrOut = ""                ' Подсказку не возвращаем 
+  Else   
+    TextRu(1, 15, 6, font, StrIn)' Иначе выводим в поле ввода редактируемую строку
+  StrOut = StrIn                ' Делаем копию входной строки 
+  EndIf
+                                ' В случае задания команды отмена (esc отм) - возвращаем строку неизменной
+  Ir = Text.GetLength(StrIn)    ' Текущая длина строки (вопрос делать ли скроллинг ?)
+  Buttons.Flush()               ' Сбрасываем ввод кнопок
+  endRed = 0                    ' признак выхода из цикла редактирования строки
+  Xs  = 5                       ' Встаем на кнопку ввода (по которой завершаем редактирование строки)
+  Xsp = 5                       ' предыдущая координата x курсора на служебной строки
+  Yr = 4                        ' на служебной строке
+  Yrp = 4                       ' предыдущий курсор тоже на служебной строке
+  Xr = 10                       ' позиция символа выше entr (ввод))
+  Xrp = 10                      ' позиция курсора на поле букв
+  OutCom(0, Xs, font, Chr[48])  ' Отображаем текущий курсор (в инверсном ввиде) на кнопке ввода
+  ' Цикл редактирования входной строки
+  While endRed = 0              ' пока не зададим признак окончания редактирования
+    Buttons.Wait()              ' Ждем нажатия на любую кнопку
+    btn = Buttons.GetClicks()   ' вводим текущую кнопку, нажатую пользователем
+    ' вначале вытираем текущий курсор с текущего места
+    If Yrp < 4 Then
+      char = Chr[Yrp*11 + Xrp]  ' Для обычных символов - просто пропечатываем текущий символ
+      OutChr(1, Xrp, Yrp, font, char)     ' в прямом виде
+    Else
+      OutCom(1, Xsp, font, Chr[Xsp+44])   ' Для служебной строки снимаем инверсию с текущей команды
+    EndIf
+    '  Реагируем на нажатую кнопку
+    If     btn = "U" Then     ' перемещаем курсор:
+      If Yr > 0 Then          ' вверх, если это возможно
+        Yr = Yr - 1
+        If Yrp = 4 Then       ' при переходе со служебной строки
+          If Xs = 0 Then      ' выставляем близжайщий Xr
+            Xr = 0
+          ElseIf Xs = 1 Then  ' так как кнопки команд занимают от 1 до 2 знакомест букв
+            Xr = 2
+          ElseIf Xs = 2 Then
+            Xr = 4
+          ElseIf Xs = 3 Then
+            Xr = 6
+          ElseIf Xs = 4 Then
+            Xr = 8
+          Else
+            Xr = 10
+          EndIf
+        EndIf
+      EndIf
+    ElseIf btn = "D" Then     ' вниз, если это возможно
+      If Yr < 4 Then
+        Yr = Yr + 1
+        If Yr = 4 Then        ' при переходе на служебную строку
+          If Xr < 2 Then      ' вычисляем нужную координату команды Xs
+            Xs = 0
+          ElseIf Xr < 4 Then
+            Xs = 1
+          ElseIf Xr < 5 Then
+            Xs = 2
+          ElseIf Xr < 7 Then
+            Xs = 3
+          ElseIf Xr < 9 Then
+            Xs = 4
+          Else
+            Xs = 5
+          EndIf
+        EndIf
+      EndIf
+    ElseIf btn = "L" Then     ' влево, если это возможно
+      If Yr < 4 Then          ' поле букв
+        If Xr > 0 Then
+          Xr = Xr - 1
+        EndIf
+      Else
+        If Xs > 0 Then        ' строка команд
+          Xs = Xs - 1
+        EndIf
+      EndIf
+    ElseIf btn = "R" Then     ' Вправо, если это возможно
+      If Yr < 4 Then
+        If Xr < 10 Then
+          Xr = Xr + 1         ' поле букв
+        EndIf                 
+      Else
+        If Xs < 5 Then
+          Xs = Xs + 1         ' строка команд
+        EndIf
+      EndIf
+    ElseIf btn = "E" Then     ' обрабатываем нажатие ввода ("Е")
+      If Yr < 4 Then          ' Если находимся в поле букв, то добавляем символ в конец редактируемой строки
+        char = Chr[Yr*11 + Xr]
+        StrIn = Text.Append(StrIn, char)
+        isOutStr = 1          ' и задаем признак отобразить новую строку в поле ввода
+        Ir = Ir + 1           ' для отслеживания скролинга - увеличиваем текущую длину строки
+      Else                    ' Нижнюю (служебную) строку команд - обрабатываем иначе
+        If     Xs = 0 Then    ' Для команды отмены (esc, отм)
+          endRed = 1          ' Просто задаем конец цикла
+        ElseIf Xs = 1 Then    ' команда изменить раскладку с английской буквы на Русскую и обратно
+          lan = 1 - lan       ' 0 меняем на 1 или 1 меняем на 0
+          GetFont(cps,font,Chr)' перерисовываем символы клавиатуры на экране и перезадаем массив символов
+          ' обрабатываем ситуацию "/a/r" или "/r/a", то есть если не было ввода символов после
+          ' переключения раскладки, то просто удаляем два последних символа переключения раскладки           
+          If lan = 0 Then     ' вставляем символы переключения раскладки (строку не перерисовываем))
+            If Text.EndsWith(StrIn, "/r") Then
+              Ir = Ir - 2         ' для отслеживания скролинга - уменьшаем текущую длину строки
+              StrIn = Text.GetSubText(StrIn, 1, Ir)   'Удаляем "/r"
+            Else 
+              StrIn = Text.Append(StrIn, "/a")  ' добавляем "/a" переключение на английскую раскладку
+              Ir = Ir + 2         ' для отслеживания скролинга - увеличиваем текущую длину строки
+            EndIf  
+          Else
+            If Text.EndsWith(StrIn, "/a") Then
+              Ir = Ir - 2         ' для отслеживания скролинга - уменьшаем текущую длину строки
+              StrIn = Text.GetSubText(StrIn, 1, Ir)   'Удаляем "/a"
+            Else 
+              StrIn = Text.Append(StrIn, "/r")  ' добавляем "/r" переключение на русскую раскладку
+              Ir = Ir + 2         ' для отслеживания скролинга - увеличиваем текущую длину строки
+            EndIf    
+          EndIf               
+        ElseIf Xs = 2 Then    ' Прописные буквы  <---> строчные буквы
+          cps = 1 - cps       ' 0 меняем на 1 или 1 меняем на 0
+          GetFont(cps,font,Chr)'перерисовываем символы клавиатуры на экране и перезадаем массив символов
+        ElseIf Xs = 3 Then    ' ввод символа пробела
+          StrIn = Text.Append(StrIn, " ") ' Вводим пробел в редактируемую строку
+          isOutStr = 1        ' и задаем признак отобразить новую строку в поле ввода
+          Ir = Ir + 1         ' для отслеживания скролинга - увеличиваем текущую длину строки
+        ElseIf Xs = 4 Then    ' Команда Забой,удаление (del, заб) последнего символа строки
+          If Text.EndsWith(StrIn, "/a") Then    ' Если последние символы - переключение раскладки
+             Ir = Ir - 2      ' удаляем символ переключения на английскую раскладку
+             StrIn = Text.GetSubText(StrIn, 1, Ir)   'Удаляем "/a"
+             lan = 1          ' и включаем снова русскую раскладку
+             GetFont(cps,font,Chr)' перерисовываем символы клавиатуры на экране и перезадаем массив символов
+          ElseIf Text.EndsWith(StrIn, "/r") Then    ' То же самое для русской расскладки
+             Ir = Ir - 2      ' удаляем символ переключения на русскую раскладку
+             StrIn = Text.GetSubText(StrIn, 1, Ir)   'Удаляем "/r"
+             lan = 0          ' и включаем снова английскую раскладку
+             GetFont(cps,font,Chr)' перерисовываем символы клавиатуры на экране и перезадаем массив символов
+          ElseIf Text.StartsWith(StrIn, "/0") Then    ' Если на поле вывода еще выведено приглашение
+            isOutStr = 3      ' то задаем признак убрать его с поля ввода
+          Else                ' если просто надо убрать (забить) обычный символ 
+              Ir = Ir - 1      ' то уменьшаем текущую длину строки
+              ' Просто копируем строку саму в себя, но без последнего символа
+              StrIn = Text.GetSubText(StrIn, 1, Ir)
+              isOutStr = 2      ' задаем признак, что нужно отобразить новую строку в поле ввода с пробелом
+          EndIf
+        ElseIf Xs = 5 Then    ' Для команды ввода (entr, ввод)
+          endRed = 1          ' Задаем конец цикла редактирования
+          StrOut = StrIn      ' и возвращаем отредактированную строку
+        EndIf
+      EndIf
+    EndIf
+    If isOutStr > 0 Then      ' Если надо перевывести редактируемую строку, 
+      If Text.StartsWith(StrIn, "/0") Then    ' Если на поле вывода выведено приглашение
+        CharN = ""
+        If isOutStr <> 3 Then  ' Если убираем не по забою,
+          CharN = Text.GetSubTextToEnd(StrIn, Ir) ' то запоминаем введенный символ
+        EndIf
+        StrIn = CharN                   ' убираем приглашение
+        LCD.FillRect(0, 10, 3, 156, 15) ' и очищаем поле ввода
+        Ir = Text.GetLength(StrIn)      '
+      EndIf
+      If isOutStr = 2 Then      ' При забое чтобы убрать забиваемый символ
+          TextRu(1, 15, 6, font, StrIn + " ")  ' выводим строку в поле ввода с дополнительным пробелом
+      Else 
+          TextRu(1, 15, 6, font, StrIn)        ' или просто выводим строку в поле ввода
+      EndIf
+      isOutStr = 0              ' признак что строка выведена
+    EndIf    
+      
+    ' Новое место для курсора
+    If Yr < 4 Then                  ' если не вышли в служебную строку, то обрабатываем как символ
+      char = Chr[Yr*11 + Xr]        ' то есть символ на новом месте
+      OutChr(0, Xr, Yr, font, char) ' отображаем в инверсном виде
+    Else
+      OutCom(0, Xs, font, Chr[Xs+44])   ' В служебной строке отображаем в инверсном виде новую команду
+    EndIf
+    Yrp = Yr                    ' Запоминаем строку, куда установлен курсор после его перемещения
+    Xrp = Xr                    ' и позицию символа
+    Xsp = Xs                    ' или команды
+  EndWhile
+  Clear()                     ' очистили экран
+EndFunction
+' -------------------------------------------------------
+' Так как Small Basic для Clever не поддерживает русских символов, более того, не поддерживает
+' даже ввод кодов русских символов в строковые значения, то принято решение задавать
+' для вывода на экран ЖКИ методом TextRu строки с русскими символами, набранными в английской раскладке
+' клавиатуры. То есть вводим вместо русской "А" - латинское "F", вместо "Б" - "<" и так далее.
+' Сочетать английские и русские буквы в одной строке можно, используя слеш-командыЖ
+' /a - переключится на английские символы, /r - переключится на русские буквы.
+' по умолчанию начинаем выводить русские буквы.
+' Остальные символы: цифры, знаки и т.д, выводятся как обычно,
+' кроме 14 знаков, которые совмещены с русскими буквами
+' ("Б" - "<", "Ю" - ">", "Ж" - ": "Э" - """ или "|", "Х" - "{", "Ъ" - "}", "Ё" - "~"
+'  "б" - ",", "ю" - ".", "ж" - "; "э" - "'" или "\", "х" - "[", "ъ" - "]", "ё" - "`")
+' и знаком "№" - "#", 
+' знаки "Э" и "э" - так как они стоят на кнопке с символами ["] и ['], внутри " " можно задавать "|" и "\"
+' но при вводе с клавиатуры будут задаваться коды 39 "э" и 34 "Э"  
+Function TextRu(in number color, in number xst, in number yst, in number font, in string txt)
+  lanSt = lan             'Запоминаем какой была раскладка до выполнения метода
+  sizeXSt = sizeX         'и размер шрифта
+  sizeYSt = sizeY         '
+  If font = 2 Then        ' Задаем размер шрифта по формальному параметру font
+    sizeX = 16
+    sizeY = 16
+  Else
+    sizeX = 8
+    sizeY = 8
+  EndIf
+  lan = 1                 ' по умолчанию должен быть русский текст
+  slash = 0               ' но можно делать вставки английских букв между /a до /r
+  xc = xst                ' при использовании слеша "/" позиция x не всегда соответсвует номеру буквы в строке
+  yc = yst                ' запоминаем начальную позицию вывода строки. 
+                          ' возможно понадобится при выводе строки в несколько строк экрана 
+  For i = 1 To Text.GetLength(txt)
+    tekChar = Text.GetSubText(txt, i, 1)
+    PrintChar(color, xc, yc, font, tekChar, res)    ' res = 
+    If res <> 2 Then      ' если символ выводился, то
+      xc = xc + sizeX     ' смещаемся на следующую позицию
+    EndIf
+  EndFor
+  lan = lanSt             ' восстанавливаем раскладку, которая была до выполнения метода
+  sizeX = sizeXSt         ' и размеры шрифта
+  sizeY = sizeYSt         '
+EndFunction
+' ---------------------------------------------------------------------------------------
+' Функция тестирования шрифтов
+Function Test(in number c, in number f, in number lang)
+  ClearC(c)              ' очищаем экран
+  StopUpdate()
+  If lang = 1 And f < 2 Then     ' проверяем маленкие русские буквы
+    '                     1234567890                            123456789012
+    '                    "СЪЕШЬ ЕЩЁ                             ЭТИХ МЯГКИХ "
+    TextRu(c, 0,  10, f, "C}TIM TO~ " + Text.GetCharacter(34) + "NB{ VZURB{")
+    '                    "   ФРАНЦУЗКИХ БУЛОК,  "
+    TextRu(c, 0,  30, f, "   AHFYWEPRB{ <EKJR/a,")
+    '                    "     ДА ВЫПЕЙ ЧАЮ №   . "
+    TextRu(c, 0,  50, f, "     LF DSGTQ XF> # /a. ")
+    '                     1234567890123456789012
+    '                    "съешь ещё этих мягких "
+    TextRu(c, 0,  70, f, "c]tim to` " + Text.GetCharacter(39) + "nb[ vzurb[")
+    '                    "   французких булок,  "
+    TextRu(c, 0,  90, f, "   ahfyweprb[ ,ekjr/a,")
+    '                    "     да выпей чаю.    "
+    TextRu(c, 0, 110, f, "     lf dsgtq xf./a.  ")
+  ElseIf lang = 0 And f < 2 Then  ' проверяем маленкие английские буквы
+    '                       1234567890123456789012
+    TextRu(c, 0,  10, f, "/a THE QUICK BROWN FOX ")
+    TextRu(c, 0,  30, f, "/a   JUMPS OVER THE    ")
+    TextRu(c, 0,  50, f, "/a     LAZY DOG        ")
+    TextRu(c, 0,  70, f, "/a the quick brown fox ")
+    TextRu(c, 0,  90, f, "/a   jumps over the    ")
+    TextRu(c, 0, 110, f, "/a     lazy dog        ")
+  ElseIf lang = 1 And f = 2 Then     ' проверяем большие русские буквы
+    '                     12345678901
+    '                    "СЪЕШЬ ЕЩЁ "            12345678901
+    TextRu(c, 0,  10, f, "C}TIM TO~ ")         '"ЭТИХ МЯГКИХ"
+    TextRu(c, 0,  30, f, Text.GetCharacter(34) + "NB{ VZURB{")
+    '                    "ФРАНЦУЗКИХ "
+    TextRu(c, 0,  50, f, "AHFYWEPRB{ ")
+    '                    " БУЛОК  ,   ДА "
+    TextRu(c, 0,  70, f, " <EKJR/a,/r LF ")
+    '                    " ВЫПЕЙ ЧАЮ №  ."
+    TextRu(c, 0,  90, f, " DSGTQ XF> #/a.")
+    ' Показываем экран с заглавными (прописными) по первого нажатия на любую кнопку
+    Update()
+    Buttons.Flush()
+    Buttons.Wait()
+    ClearC(c)            ' очищаем экран
+    StopUpdate()
+    '                     123456789012
+    '                    "съешь ещё  "           123456789012
+    TextRu(c, 0,  10, f, "c]tim to`  ")        '"этих мягких "
+    TextRu(c, 0,  30, f, Text.GetCharacter(39) + "nb[ vzurb[")
+    '                    "французких "
+    TextRu(c, 0,  50, f, "ahfyweprb[ ")
+    '                    " булок  ,   да "
+    TextRu(c, 0,  70, f, " ,ekjr/a,/r lf ")
+    '                    "выпей чаю  .")
+    TextRu(c, 0,  90, f, "dsgtq xf./a.")
+  ElseIf lang = 0 And f = 2 Then  ' проверяем большие английские буквы
+    '                       123456789012
+    TextRu(c, 0,  10, f, "/a THE QUICK ")
+    TextRu(c, 0,  30, f, "/a BROWN FOX ")
+    TextRu(c, 0,  50, f, "/a JUMPS OVER")
+    TextRu(c, 0,  70, f, "/a    THE    ")
+    TextRu(c, 0,  90, f, "/a LAZY DOG  ")
+    ' Показываем экран с заглавными (прописными) по первого нажатия на любую кнопку
+    Update()
+    Buttons.Flush()
+    Buttons.Wait()
+    ClearC(c)           ' очищаем экран
+    StopUpdate()
+    '                       123456789012
+    TextRu(c, 0,  10, f, "/a the quick ")
+    TextRu(c, 0,  30, f, "/a brown fox ")
+    TextRu(c, 0,  50, f, "/a jumps over")
+    TextRu(c, 0,  70, f, "/a    the    ")
+    TextRu(c, 0,  90, f, "/a lazy dog  ")
+  EndIf
+  Update()
+  ' Показываем экран по первого нажатия на любую кнопку
+  Buttons.Flush()
+  Buttons.Wait()
+EndFunction
+'========================================================================
+private
+
+' временный признак, что нет растра для отображения символа
+number pr
+' текущяя раскладка выводимого методом TextRu текста переключается по /a - английская /r - русская
+' сами символы /a и /r не печатаются
+number lan        ' 0 - английская раскладка, 1 - русская
+number slash      ' 1 - предыдущий символ / (слеш) - пропустили в любом случае, по текущему символу
+' переключаем раскладку по /a - на английскую, по /r -  на русскую
+' слешсимволы /0, /1, /2 - переключение шрифта вывода следующих символов
+'------------------------------------------------------------------
+' Вывод символа экранной клавиатуры
+Function OutChr(in number col, in number x, in number y, in number font, in string chr)
+  LCD.FillRect(1-col, 2+x*16, 26+y*20, 13, 17)
+  PrintChar(col, 4+x*16, 30+y*20, font, chr, res)
+EndFunction
+
+' Вывод команды экранной клавиатуры
+Function OutCom(in number col, in number Xs, in number font, in string chr)
+  If     Xs = 0 Then
+    ' Команда esc - отм  -  отмена редактирования строки
+    LCD.FillRect(1-col, 2, 107, 29, 17)
+    TextRu(col, 4, 110, font, chr)
+  ElseIf Xs = 1 Then
+    ' Команда eng - рус  -  переключение англиской - русской раскладки клавиатуры
+    LCD.FillRect(1-col, 34, 107, 29, 17)
+    TextRu(col, 36, 110, font, chr)
+    ' Команда U - l (З - с) переключение Заглавных (прописных) и строчных букв
+  ElseIf Xs = 2 Then
+    LCD.FillRect(1-col, 66, 107, 14, 17)
+    TextRu(col, 68, 110, font, chr)
+    ' Просто ввод символа пробел " "
+  ElseIf Xs = 3 Then
+    LCD.FillRect(1-col, 82, 107, 29, 17)
+    LCD.FillRect(col, 86, 115, 21, 4)
+    'LCD.Rect(1, 84, 107, 26, 17)
+    'TextRu(1-col, 86, 110, font, chr)
+  ElseIf Xs = 4 Then
+    LCD.FillRect(1-col, 114, 106, 29, 19)
+    TextRu(col, 116, 110, font, chr)
+  ElseIf Xs = 5 Then
+    LCD.FillRect(1-col, 146, 106, 29, 19)
+    TextRu(col, 148, 110, font, chr)
+  EndIf
+EndFunction
+
+' Функция задания набора раскладки символов для экранной клавиатуры
+Function GetFont(in number caps, in number font, out string[] Char)
+  ' фонт всегда 1
+  sizeX = 8
+  sizeY = 8
+  If     lan = 0 And caps = 0 Then      ' английская строчная раскладка
+    '------------------------
+    ' 01234567890123456789012
+    '_0_1_2_3_4_5_6_7_8_9_0_
+    ' 1 2 3 4 5 6 7 8 9 0 ]
+    ' q w e r t y u i o p [
+    ' a s d f g h j k l ; '
+    ' z x c v b n m , . - +
+    ' esc eng l ▄▄▄ del entr
+    '------------------------
+    S = "1234567890]qwertyuiop[asdfghjkl;" + Text.GetCharacter(39) + "zxcvbnm,./+"
+    For I = 1 To 44
+      Char[I-1] = Text.GetSubText(S, I, 1)
+    EndFor
+    Char[44] = "/aesc"
+    Char[45] = "/aeng"
+    Char[46] = "/al"
+    Char[47] = "  "
+    Char[48] = "/adel"
+    Char[49] = "/aentr"
+  ElseIf lan = 0 And caps = 1 Then      ' английская заглавная раскладка
+    '------------------------
+    ' 01234567890123456789012
+    '_0_1_2_3_4_5_6_7_8_9_0_
+    ' ~ ` # / ? | \ ( ) @ }             
+    ' Q W E R T Y U I O P {
+    ' A S D F G H J K L : "
+    ' Z X C V B N M < > _ =
+    ' ESC ENG U ▄▄▄ DEL ENTR
+    '------------------------
+    S = "~`#/?|\()@}QWERTYUIOP{ASDFGHJKL:" + Text.GetCharacter(34) + "ZXCVBNM<>_="
+    For I = 1 To 44
+      Char[I-1] = Text.GetSubText(S, I, 1)
+    EndFor
+    Char[44] = "/aESC"
+    Char[45] = "/aENG"
+    Char[46] = "/aU"
+    Char[47] = "   "
+    Char[48] = "/aDEL"
+    Char[49] = "/aENTR"
+    ' для русской раскладки - задаем символы для русских букв, но в английской раскладке
+  ElseIf lan = 1 And caps = 0 Then      ' русская строчная раскладка
+    '------------------------
+    ' 01234567890123456789012
+    '_0_1_2_3_4_5_6_7_8_9_0_
+    ' 1 2 3 4 5 6 7 8 9 0 -
+    ' й ц у к е н г ш щ з х
+    ' ф ы в а п р о л д ж ъ
+    ' я ч с м и т ь б ю ё э
+    ' отм рус с ▄▄▄ заб ввод
+    '------------------------
+    S = "1234567890-qwertyuiop]asdfghjkl;[zxcvbnm,.`" + Text.GetCharacter(39)
+    For I = 1 To 44
+      Char[I-1] = Text.GetSubText(S, I, 1)
+    EndFor
+    Char[44] = "jnv"
+    Char[45] = "hec"
+    Char[46] = "c"
+    Char[47] = "  "
+    Char[48] = "pf,"
+    Char[49] = "dsg"
+  ElseIf lan = 1 And caps = 1 Then        ' русская заглавная раскладка
+    '------------------------
+    ' 01234567890123456789012
+    '_0_1_2_3_4_5_6_7_8_9_0_
+    ' ! @ № $ + % ^ & ( ) _
+    ' Й Ц У К Е Н Г Ш Щ З Х
+    ' Ф Ы В А П Р О Л Д Ж Ъ
+    ' Я Ч С М И Т Ь Б Ю Ё Э
+    ' ОТМ РУС З ▄▄▄ ЗАБ ВВОД
+    '------------------------
+    S = "!@#$+^&*()_QWERTYUIOP{ASDFGHJKL:}ZXCVBNM<>~" + Text.GetCharacter(34)
+    For I = 1 To 44
+      Char[I-1] = Text.GetSubText(S, I, 1)
+    EndFor
+    Char[44] = "JNV"
+    Char[45] = "HEC"
+    Char[46] = "P"
+    Char[47] = "  "
+    Char[48] = "PF<"
+    Char[49] = "DSG"
+  EndIf
+  LCD.StopUpdate()
+  ' Выводим символы текущей раскладки на экран в прямом цвете
+  For Y = 0 To 3
+    For X = 0 To 10     ' 4 строки символов
+      OutChr(1, X, Y, font, Char[Y*11 + X])
+    EndFor
+  EndFor
+  For I = 44 To 49      ' Служебная строка команд
+    OutCom(1, I-44, font, Char[I])
+  EndFor
+  LCD.Update()
+EndFunction
+'--------------------------------------------------------
+' Функция проверки русской буквы - то есть смотрим все латинские буквы 26+26,
+' плюс символы совмещенные с русскими буквами
+' ("Б" - "<", "Ю" - ">", "Ж" - ": "Э" - """ или "|", "Х" - "{", "Ъ" - "}", "Ё" - "~"
+'  "б" - ",", "ю" - ".", "ж" - "; "э" - "'" или "\", "х" - "[", "ъ" - "]", "ё" - "`") а также "№" - "#"
+' по "/" - задаем признак slash = 1 и ждем следующего символа
+' по /a - задаем lan = 0 - английская раскладка, по /r - lan = 1 - русская раскладка. "a" и "r" не выводим
+Function isCharRu(in string chr, out number cod, out number res)
+res = 0
+If chr = "/" Then
+  If slash = 0 Then
+    slash = 1       'первый символ "/"
+    res = 2         'пропустить вывод символа
+  EndIf
+ElseIf slash = 1 Then   'перед этим был получен слеш
+  slash = 0             'слеш обработан
+  If chr = "a" Then
+    lan = 0             'переключаем на английскую раскладку
+    res = 2             'пропускаем символ
+  ElseIf chr = "r" Then
+    lan = 1             'переключаем на русскую раскладку
+    res = 2             'пропускаем символ
+  ElseIf chr = "0" Or chr = "1" Or chr = "2" Then   'для слешсимволов переключения шрифта - ничего не делаем
+    res = 2             'но пропускаем символ 0, 1, 2
+  EndIf
+EndIf
+' для русской раскладки проверяем допустимые буквы и ставим признак русской буквы
+cod = Text.GetCharacterCode(chr)
+If lan = 1 And res < 2 Then                 ' проверяем русская раскладка  и одиночная буква 
+  If     cod >= 65 And cod <=  90 Then      ' Русские прописные буквы (26 - под английскими буквами)
+    cod = cod - 65                          ' смещаем код в диапазон 0 - 32
+    res = 1
+    ' Дополнительно 7 русских букв под небуквенными символами с клавиатуры
+  ElseIf chr = "<" Then                     ' Б
+    cod = 26
+    res = 1
+  ElseIf chr = "~" Then                     ' Ё
+    cod = 27
+    res = 1
+  ElseIf chr = ":" Then                     ' Ж
+    cod = 28
+    res = 1
+  ElseIf chr = "{" Then                     ' Х
+    cod = 29
+    res = 1
+  ElseIf chr = "}" Then                     ' Ъ
+    cod = 30
+    res = 1
+  ElseIf cod = 34  Then                     ' Э
+    cod = 31
+    res = 1
+  ElseIf chr = "|"  Then                    ' Э "|"
+    cod = 31
+    res = 1
+  ElseIf chr = ">" Then                     ' Ю
+    cod = 32
+    res = 1
+  ElseIf cod >= 97 And cod <= 122 Then      ' русские строчные буквы (26 - под английскими буквами)
+    cod = cod - 64                     ' Смещаем код в диапазон 33 - 58
+    res = 1
+    ' Дополнительно 7 русских букв под небуквенными символами с клавиатуры
+  ElseIf chr = "," Then                     ' б
+    cod = 59
+    res = 1
+  ElseIf chr = "`" Then                     ' ё
+    cod = 60
+    res = 1
+  ElseIf chr = ";" Then                     ' ж
+    cod = 61
+    res = 1
+  ElseIf chr = "[" Then                     ' х
+    cod = 62
+    res = 1
+  ElseIf chr = "]" Then                     ' ъ
+    cod = 63
+    res = 1
+  ElseIf cod = 39  Then                     ' э
+    cod = 64
+    res = 1
+  ElseIf chr = "\"  Then                    ' э "\"
+    cod = 64
+    res = 1
+  ElseIf chr = "." Then                     ' ю
+    cod = 65
+    res = 1
+    ' Плюс дополнительно символ русского № под символом #
+  ElseIf chr = "#" Then                     ' №
+    cod = 66
+    res = 1
+  EndIf
+EndIf
+EndFunction
+'---------------------------------------------------------
+' Функция вывода русского символа в растровой форме
+Function PrintChar(in number color, in number x, in number y, in number font, in string chr, out number res)
+  ' Вначале проверяем chr русская буква или нет
+  ' cod - возвращаемый код нашей русской буквы; 
+  ' возвращаемый признак res = 0 - английская буква, res = 1 - русская буква, res = 2 - "/" спецсимвол не печатаем
+  IsCharRu(chr, cod, res)                       '
+  If      res = 0 Then                          ' не русскую букву -
+    LCD.Text(color, x, y, font, chr)            ' просто выводим в заданное место
+  ElseIf  res = 1 Then                          ' русскую букву выводим вручную, распечатывая ее растр
+    LCD.StopUpdate()                            ' Для ускорения блокируем перевывод экрана ЖКИ
+    InitFont(font)                              ' Проверяем загружен ли файл с фонтом, если нет - то загружаем его
+    
+    If     font = 0 Then                        ' 0 - й фонт - растровый шрифт 8*8 - обычный
+      Offset = cod * 8                          ' Смещение в таблице шрифта
+      ' Выполняем вывод растра символа в заданное место на экране
+      For jy = 0 To 7                           ' развертка по оси Y
+        tekByte = FontChars8x8_0[jy+Offset]     ' считываем текущий байт для iy строки
+        For ix = 0 To 7                         ' развертка по оси X
+          ' так как кодировали слева направо, то начинать перебор нужно со старшего бита до младшего
+          tekBit = Byte.BIT(tekByte, 8 - ix)    ' поэтому выбираем бит по индексу (sizeX - ix)
+          ' если color = 1 - то черным на белом фоне, если 0 - то белым на черном фоне
+          tekBit = Byte.XOR(tekBit, 1 - color)  ' используем логическую операцию XOR для инверсии бита
+          Pixel(tekBit, x + ix, y + jy)         ' выводим бит в заданную позицию растра символа на ЖКИ
+        EndFor
+      EndFor
+    ElseIf font = 1 Then                        ' 1 - й фонт - растровый шрифт 8*8 - полужирный
+      Offset = cod * 8                          ' Смещение в таблице шрифта
+      ' Выполняем вывод растра символа в заданное место на экране
+      For jy = 0 To 7                           ' развертка по оси Y
+        tekByte = FontChars8x8_1[jy+Offset]     ' считываем текущий байт для iy строки
+        For ix = 0 To 7                         ' развертка по оси X
+          ' так как кодировали слева направо, то начинать перебор нужно со старшего бита до младшего
+          tekBit = Byte.BIT(tekByte, 8 - ix)    ' поэтому выбираем бит по индексу (sizeX - ix)
+          ' если color = 1 - то черным на белом фоне, если 0 - то белым на черном фоне
+          tekBit = Byte.XOR(tekBit, 1 - color)  ' используем логическую операцию XOR для инверсии бита
+          Pixel(tekBit, x + ix, y + jy)         ' выводим бит в заданную позицию растра символа на ЖКИ
+        EndFor
+      EndFor
+    ElseIf font = 2 Then                        ' 2 - й фонт - растровый шрифт 8*8 - обычный
+      Offset = cod * 16                         ' Смещение в таблице шрифта 
+      ' Выполняем вывод растра символа в заданное место на экране
+      For jy = 0 To 15   ' развертка по оси Y
+        tekByte = FontChars16x16[jy+Offset]     ' считываем двухбайтное значение для iy строки
+        For ix = 0 To 15                        ' развертка по оси X
+          ' так как кодировали слева направо, то начинать перебор нужно со старшего бита до младшего
+          tekBit = Byte.BIT(tekByte, 16 - ix)   ' поэтому выбираем бит по индексу (sizeX - ix)
+          ' если color = 1 - то черным на белом фоне, если 0 - то белым на черном фоне
+          tekBit = Byte.XOR(tekBit, 1 - color)  ' используем логическую операцию XOR для инверсии бита
+          LCD.Pixel(tekBit, x + ix, y + jy)     ' выводим бит в заданную позицию растра символа на ЖКИ
+        EndFor
+      EndFor
+    EndIf
+    LCD.Update()
+  EndIf
+EndFunction
+'-------------------------------------------------------
+' Проверяем загружен ли фонт из файла, и если нет - то загружаем при первом обращении к функции.
+Function InitFont(in number fnt)  
+  If     fnt = 0 Then
+    If   IsInitFont0 = 0 Then     ' 0-й фонт загружен? Если нет - то загружаем
+      FFileFont = EV3File.OpenRead("Font8x8_0.fnt")
+      FontChars8x8_0 = EV3File.ReadNumberArray(FFileFont, 536)     ' Считали наш массив с растровым шрифтом
+      IsInitFont0 = 1
+      EV3File.Close(FFileFont)
+    EndIf
+  ElseIf fnt = 1 Then
+    If   IsInitFont1 = 0 Then     ' 1-й фонт загружен? Если нет - то загружаем
+      FFileFont = EV3File.OpenRead("Font8x8_1.fnt")
+      FontChars8x8_1 = EV3File.ReadNumberArray(FFileFont, 536)     ' Считали наш массив с растровым шрифтом
+      IsInitFont1 = 1
+      EV3File.Close(FFileFont)
+    EndIf
+  ElseIf fnt = 2 Then
+    If   IsInitFont2 = 0 Then                                      ' 2-й фонт загружен? Если нет - то загружаем
+      FFileFont = EV3File.OpenRead("Font16x16.fnt")
+      FontChars16x16 = EV3File.ReadNumberArray(FFileFont, 1072)
+      IsInitFont2 = 1
+      EV3File.Close(FFileFont)
+    EndIf
+  EndIf
+EndFunction
+
+' Включаем русские буквы для шрифта font = 0 (СТАРОЕ ИСПОЛЬЗОВАНИЕ)
+'import "font8x8_0"
+'Function GetFont8x8_0(in string char, out string S)
+  'font8x8_0.GetFont8x8_0(char, S)
+  'pr = font8x8_0.pr
+'EndFunction
+' Включаем русские буквы для шрифта font = 1
+'import "font8x8_1"
+'Function GetFont8x8_1(in string char, out number[] S)
+'pr = font8x8_1.pr
+'font8x8_1.GetFont8x8_1(char, S)
+'pr = font8x8_1.pr
+'EndFunction
+'include "font16x16"
+'import "font16x16"
+'Function GetFont16x16(in string char, out string S)
+  'font16x16.GetFont16x16(char, S)
+  'pr = font16x16.pr
+'EndFunction

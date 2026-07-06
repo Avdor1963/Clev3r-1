@@ -1,0 +1,47 @@
+pr_primer_ll = 0
+lv_r_getll_2 = 0
+lv_a_1 = 0
+lv_r_abs_1 = 0
+lv_l_3 = 0
+gv_f_primer_getll = 0
+gv_f_abs = 0
+gv_n = 0
+gv_p = 0
+gv_pp = 0
+gv_n1 = 0
+m_primer_getll_1 ()
+gv_f_primer_getll = lv_r_getll_2
+gv_n = gv_f_primer_getll
+lv_a_1 = - 15
+f_abs_2 ()
+gv_f_abs = lv_r_abs_1
+gv_p = gv_f_abs
+lv_a_1 = 15
+f_abs_2 ()
+gv_f_abs = lv_r_abs_1
+gv_pp = gv_f_abs
+lv_l_3 = 10
+m_primer_setll_1 ()
+gv_n = pr_primer_ll
+lv_l_3 = 100
+m_primer_setll_1 ()
+gv_n = pr_primer_ll
+m_primer_getll_1 ()
+gv_f_primer_getll = lv_r_getll_2
+gv_n1 = gv_f_primer_getll
+Sub f_abs_2
+If lv_a_1 < 0 Then
+lv_a_1 = 0 - lv_a_1
+EndIf
+lv_r_abs_1 = lv_a_1
+Goto return_1
+return_1:
+EndSub
+Sub m_primer_getll_1
+lv_r_getll_2 = pr_primer_ll * 2
+Goto return_2
+return_2:
+EndSub
+Sub m_primer_setll_1
+pr_primer_ll = lv_l_3
+EndSub

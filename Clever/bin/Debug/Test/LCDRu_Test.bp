@@ -1,0 +1,20 @@
+import "TestFont"
+import "Klav"
+import "LCDRu"
+' 0-й фонт
+TestFont.Test(1, 0, 0)     ' английский 
+TestFont.Test(1, 0, 1)     ' русский  
+' 1-й фонт
+TestFont.Test(1, 1, 0)     ' английский 
+TestFont.Test(1, 1, 1)     ' русский  
+' 2-й фонт
+TestFont.Test(1, 2, 0)     ' английский 
+TestFont.Test(1, 2, 1)     ' русский  
+
+Name = Klav.Klav("/0DDTLBNT BVZ")          ' вводим имя, например, игрока с подсказкой
+PAROL = Klav.Klav("/*DDTLBNT GFHJKM")      ' вводим пароль с подсказкой
+
+LCDRu.TextRu(1, 10, 20, 2, "Buhjr/a: " + Name)
+LCDRu.TextRu(1, 10, 40, 2, "Gfhjkm/a: " + PAROL)
+Buttons.Flush()
+Buttons.Wait()

@@ -1,0 +1,74 @@
+'Name: EV3 Color module
+'Version: 1.0
+'Author: OFDL Anthony 2023/08/28
+'---------------------------------
+
+Function number getIdColor(in number port)
+  Sensor.SetMode(port, 2)
+  return Sensor.ReadRawValue(port, 0)
+EndFunction
+
+Function string getColor(in number port)
+  Sensor.SetMode(port, 2)
+  IsColor()
+  return Col[Sensor.ReadRawValue(port, 0)]
+EndFunction
+
+Function string getColorR(in number port)
+  Sensor.SetMode(port, 2)
+  IsColor()
+  return ColR[Sensor.ReadRawValue(port, 0)]
+EndFunction
+
+Function number getLight(in number port)
+  Sensor.SetMode(port, 0)
+  return Sensor.ReadRawValue(port, 0)
+EndFunction
+
+Function number getAmbient(in number port)
+  Sensor.SetMode(port, 1)
+  return Sensor.ReadRawValue(port, 0)
+EndFunction
+
+Function number getRaw(in number port)
+  Sensor.SetMode(port, 3)
+  return Sensor.ReadRawValue(port, 0)
+EndFunction
+
+Function number getRGBW(in number port, out number r, out number g, out number b)
+  Sensor.SetMode(port, 4)
+  values = Sensor.ReadRaw(port, 3)
+  r = values[0]
+  g = values[1]
+  b = values[2]
+  return r + g + b
+EndFunction
+
+private
+
+string[] Col            ' Список цветов LEGO, определяемых датчиком цвета на английском
+string[] ColR           ' и на русском
+
+Function IsColor()
+  If Col[0] = "" Then
+    Col[0] = "NONE"
+    Col[1] = "BLACK"
+    Col[2] = "BLUE"
+    Col[3] = "GREEN"
+    Col[4] = "YELLOW"
+    Col[5] = "RED"
+    Col[6] = "WHITE"
+    Col[7] = "BRAUN"
+  EndIf
+  If ColR[0] = "" Then
+    ColR[0] = "YEN"              ' НЕТ
+    ColR[1] = "X~HYSQ"           ' ЧЁРНЫЙ
+    ColR[2] = "CBYBQ"            ' СИНИЙ
+    ColR[3] = "PTK~YSQ"          ' ЗЕЛЁНЫЙ
+    ColR[4] = ":~KNSQ"           ' ЖЁЛТЫЙ
+    ColR[5] = "RHFCYSQ"          ' КРАСНЫЙ 
+    ColR[6] = "<TKSQ"            ' БЕЛЫЙ
+    ColR[7] = "RJHBXYTDSQ"       ' КОРИЧНЕВЫЙ
+  EndIf
+EndFunction
+ 

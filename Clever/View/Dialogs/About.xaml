@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Clever.View.Dialogs"
         mc:Ignorable="d"
-        Title="CLEVƎR TEAM" Height="370" Width="400" WindowStartupLocation="CenterScreen">
+        Title="CLEVƎR TEAM" Height="480" Width="400" WindowStartupLocation="CenterScreen">
     <Grid Margin="0" Background="{StaticResource about_bgd}">
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-            <Grid Margin="30">
+            <Grid Margin="20" Height="420">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="25"/>
                     <RowDefinition Height="25"/>
@@ -18,6 +18,11 @@
                     <RowDefinition Height="25"/>
                     <RowDefinition Height="25"/>
                     <RowDefinition Height="15"/>
+                    <RowDefinition Height="25"/>
+                    <RowDefinition Height="25"/>
+                    <RowDefinition Height="25"/>
+                    <RowDefinition Height="15"/>
+                    <RowDefinition Height="25"/>
                     <RowDefinition Height="25"/>
                     <RowDefinition Height="25"/>
                     <RowDefinition Height="25"/>
@@ -46,6 +51,20 @@
                         <TextBlock Text="https://t.me/clev3r_chat" FontFamily="Calibri" FontSize="14" VerticalAlignment="Center"/>
                     </Hyperlink>
                 </Label>
+            
+                <TextBlock Text="Доработка:" Margin="5,0,0,0" Grid.Row="12" FontFamily="Calibri" FontSize="16" VerticalAlignment="Center"/>
+                <TextBlock Text="Дородицын А.В." Margin="5,0,0,0" Grid.Row="13" FontFamily="Calibri" FontSize="14" VerticalAlignment="Center" Height="26"/>
+                <Label Grid.Row="14" Height="25">
+                    <Hyperlink NavigateUri="https://avdor1963.ru/ob-avtore/" Click="Avdor_Click">
+                        <TextBlock Text="https://t.me/clev3r_chat" FontFamily="Calibri" FontSize="14" VerticalAlignment="Top" RenderTransformOrigin="0.52,0.717"/>
+                    </Hyperlink>
+                </Label>
+                <Label Grid.Row="15" Height="25">
+                    <Hyperlink NavigateUri="https://github.com/Avdor1963?tab=repositories" Click="AvdorGit_Click">
+                        <TextBlock Text="https://t.me/clev3r_chat" FontFamily="Calibri" FontSize="14" VerticalAlignment="Top" RenderTransformOrigin="0.52,0.717"/>
+                    </Hyperlink>
+                </Label>
+
             </Grid>
         </ScrollViewer>
     </Grid>

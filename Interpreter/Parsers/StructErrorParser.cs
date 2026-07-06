@@ -7,7 +7,8 @@ using System.Text;
 
 namespace Interpreter.Parsers
 {
-    internal static class StructErrorParser
+    internal static class 
+        StructErrorParser
     {
         //private static Tuple<string, int> TmpFuncVarsKey = new Tuple<string, int>("", 0);
         internal static void Start(List<Line> lines)
@@ -815,7 +816,7 @@ namespace Interpreter.Parsers
                 {
                     func = true;
 
-                    if (line.Words.Count == 1)
+                    if (line.Words.Count == 1) 
                     {
                         Data.Errors.Add(new Errore(line.Number, line.FileName, 1803, ""));
                         return;

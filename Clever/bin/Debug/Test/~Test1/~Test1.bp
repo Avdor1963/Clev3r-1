@@ -1,0 +1,26 @@
+lv_s_1 = ""
+lv_r_teststring_1 = ""
+gv_f_teststring = ""
+gv_f_teststring_1 = ""
+gv_sin = ""
+LCD.Clear ()
+gv_sin = "12345678"
+LCD.Text ( 1 , 0 , 10 , 2 , gv_sin )
+lv_s_1 = gv_sin
+f_teststring_2 ()
+gv_f_teststring = lv_r_teststring_1
+lv_s_1 = " ABCD"
+f_teststring_2 ()
+gv_f_teststring_1 = lv_r_teststring_1
+LCD.Text ( 1 , 0 , 30 , 2 , gv_f_teststring + gv_f_teststring_1 )
+Buttons.Wait ()
+Sub f_teststring_2
+lv_sout_1 = ""
+lv_n_1 = Text.GetLength ( lv_s_1 )
+For lv_i_1 = 0 To lv_n_1 - 1
+lv_sout_1 = lv_sout_1 + Text.GetSubText ( lv_s_1 , lv_n_1 - lv_i_1 , 1 )
+EndFor
+lv_r_teststring_1 = lv_sout_1
+Goto return_1
+return_1:
+EndSub

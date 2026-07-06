@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using Interpreter.CommonData;
+﻿using Interpreter.CommonData;
 using Interpreter.DataTemplate;
 using Interpreter.DataTemplates;
 using Interpreter.Utils;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Xml;
 
 namespace Interpreter
 {
@@ -154,11 +155,12 @@ namespace Interpreter
             // Интерпретатор
             try
             {
-                var text = new List<string>();
-                foreach (var l in lines)
-                {
-                    text.Add(l);
-                }
+                //===== этот текст
+                //var text = new List<string>();
+                //foreach (var l in lines)
+                //{
+                //    text.Add(l);
+                //}
                 // =========
                 string tmpName = name;
                 Data.Project.Type = Enums.ProjectType.BP;
@@ -167,6 +169,20 @@ namespace Interpreter
                 Data.Project.MainName = name;
 
                 _outFolder = pref + Data.Project.MainName.Replace(Extension.BPProgram, "");
+
+                //==== заменяем на этот:
+                // Предварительная обработка по замене определений вызовов функций.
+                List<string> text = new PredFunc().Exec(name, lines, 0);
+                if (Data.Errors.Count > 0)
+                {
+                    foreach (var e in Data.Errors)
+                    {
+                        errors.Add(e.ToString());
+                    }
+                    Status = false;
+                    return;
+                }
+                // =========
 
                 new Preprocessor().Start(tmpName, path, text);
                 if (Data.Errors.Count > 0)

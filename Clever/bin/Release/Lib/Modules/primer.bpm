@@ -1,0 +1,8 @@
+number LL
+
+Function number GetLL()
+    return LL*2
+EndFunction
+Function SetLL(in number L)
+  LL = L
+EndFunction

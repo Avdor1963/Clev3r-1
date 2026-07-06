@@ -1,0 +1,14 @@
+Function string TestString(in string S)
+  Sout = ""
+  N = Text.GetLength(S)
+  For I = 0 To N - 1
+    Sout = Sout + Text.GetSubText(S, N - I, 1)
+  EndFor
+  return Sout
+EndFunction
+
+LCD.Clear()
+Sin = "1234"
+LCD.Text(1, 0, 10, 2, Sin)
+LCD.Text(1, 0, 30, 2, TestString(Sin) + TestString("ABCD") + TestString("0_1"))
+Buttons.Wait()

@@ -1,0 +1,24 @@
+folder "prjs" "BrkProg_SAVE"
+import "Clever:\\LCDRu"
+import "Clever:\\Klav"
+'import "Clever:\\Light"
+LCDRu.Clear()
+A1 = 155 - Mult(15, 10) + Sqrt(10) + 10
+If Sqrt(5) > 0 Then
+  A2 = Sqrt(6) + Mult(7, 5)
+  LCD.Text(1, 10, 20, 2, " " + Sqrt(2) + "  " + Mult(3,2) )
+EndIf
+Buttons.Wait()
+Buttons.GetClicks()
+SS = Klav.Klav("/0GHBDTN")
+LCDRu.TextRu(1, 0, 50, 2, SS)
+LCD.BmpFile(1, 40, 80, "EV3")
+Buttons.Wait()
+Function number Sqrt(in number par1)
+  return par1 * par1
+EndFunction
+Function number Mult(in number par1, in number par2)
+  return par1 * par2
+EndFunction
+'Light.getRaw(1, S)
+Buttons.Wait()
